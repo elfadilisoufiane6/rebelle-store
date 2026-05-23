@@ -1,14 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Truck, Shield, Star, HeadphonesIcon } from "lucide-react";
+import { Truck, Shield, Star, RotateCcw, Headphones } from "lucide-react";
 import { TRUST_ITEMS } from "@/lib/constants";
 
 const iconMap = {
   truck: Truck,
   shield: Shield,
   star: Star,
-  headphones: HeadphonesIcon,
+  "rotate-ccw": RotateCcw,
+  headphones: Headphones,
 };
 
 export default function TrustBar() {
@@ -17,7 +18,7 @@ export default function TrustBar() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {TRUST_ITEMS.map((item, index) => {
-            const Icon = iconMap[item.icon as keyof typeof iconMap];
+            const Icon = iconMap[item.icon as keyof typeof iconMap] ?? Shield;
             return (
               <motion.div
                 key={item.title}
@@ -39,7 +40,7 @@ export default function TrustBar() {
                   <Icon size={16} className="text-[#810B38]" />
                 </motion.div>
                 <div className="text-center sm:text-left">
-                  <p className="font-montserrat font-500 text-xs text-charcoal group-hover:text-[#810B38] transition-colors duration-300">
+                  <p className="font-montserrat font-medium text-xs text-charcoal group-hover:text-[#810B38] transition-colors duration-300">
                     {item.title}
                   </p>
                   <p className="font-montserrat text-xs text-charcoal/50 mt-0.5">

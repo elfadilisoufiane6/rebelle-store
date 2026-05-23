@@ -4,7 +4,7 @@ import Hero from "@/components/home/Hero";
 import TrustBar from "@/components/home/TrustBar";
 import BestSellers from "@/components/home/BestSellers";
 import BrandStory from "@/components/home/BrandStory";
-import Gallery from "@/components/home/Gallery";
+import LuxuryBanner from "@/components/home/LuxuryBanner";
 import Testimonials from "@/components/home/Testimonials";
 import FAQ from "@/components/home/FAQ";
 
@@ -16,7 +16,7 @@ export default function HomePage() {
       <TrustBar />
       <BestSellers />
       <BrandStory />
-      <Gallery />
+      <LuxuryBanner />
       <Testimonials />
       <FAQ />
       <Footer />

@@ -15,7 +15,11 @@ import {
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import AnimatedSection from "@/components/ui/AnimatedSection";
-import { BRAND_NAME_STYLIZED, BRAND_TAGLINE } from "@/lib/constants";
+import {
+  BRAND_NAME_STYLIZED,
+  BRAND_TAGLINE,
+  BRAND_SIGNATURE,
+} from "@/lib/constants";
 
 const values = [
   {
@@ -44,24 +48,17 @@ const values = [
   },
 ];
 
-const team = [
-  {
-    name: "Yasmine R.",
-    role: "Fondatrice & Directrice Créative",
-    image: "/assets/images/about/team/1.png",
-    quote: "J'ai créé Rebelle pour chaque femme qui mérite de se sentir extraordinaire.",
-  },
+// Maison portraits — used by the editorial "La Maison" spread
+const secondaryPortraits = [
   {
     name: "Imane K.",
-    role: "Directrice du Style",
-    image: "/assets/images/about/team/2.png",
-    quote: "L'élégance n'est pas une question de budget, c'est une question d'âme.",
+    role: "Direction du Style",
+    image: "/assets/images/about/team/2.jpeg",
   },
   {
     name: "Sara M.",
-    role: "Responsable Qualité",
-    image: "/assets/images/about/team/3.png",
-    quote: "Chaque détail compte. Chaque couture raconte une histoire.",
+    role: "Direction Qualité",
+    image: "/assets/images/about/team/3.jfif",
   },
 ];
 
@@ -276,74 +273,177 @@ export default function AProposPage() {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-20 lg:py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-14">
-            <span className="text-luxury-xs text-[#C4956A] block mb-4">L&apos;Équipe</span>
-            <h2
-              className="font-cormorant font-light text-charcoal"
-              style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
-            >
-              Les femmes derrière
-              <br />
-              <em className="not-italic font-semibold text-[#810B38]">
-                {BRAND_NAME_STYLIZED}
-              </em>
-            </h2>
-          </AnimatedSection>
+      {/* La Maison — editorial spread */}
+      <section className="py-24 lg:py-36 bg-white relative overflow-hidden">
+        {/* Subtle gold hairlines — editorial framing */}
+        <div className="absolute top-0 left-0 w-1/3 h-px bg-gradient-to-r from-[#C4956A]/40 to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-1/3 h-px bg-gradient-to-l from-[#C4956A]/40 to-transparent pointer-events-none" />
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-12">
-            {team.map((member, i) => (
-              <AnimatedSection key={member.name} delay={i * 0.12}>
-                <motion.div
-                  whileHover={{ y: -4 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex flex-col gap-4 group"
-                >
-                  <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-[#FAF6F2] image-reveal">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 640px) 100vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileHover={{ opacity: 1, y: 0 }}
-                      className="absolute bottom-4 left-4 right-4"
-                    >
-                      <p className="font-cormorant italic text-white text-sm leading-relaxed">
-                        &ldquo;{member.quote}&rdquo;
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+            {/* LEFT — Magazine portrait */}
+            <AnimatedSection direction="left" className="lg:col-span-6">
+              <div className="relative">
+                <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-[#FAF6F2] shadow-[0_30px_80px_rgba(26,26,26,0.18)]">
+                  <Image
+                    src="/assets/images/about/team/1.jpeg"
+                    alt="Yasmine R. — Fondatrice de la Maison Rebelle"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+
+                  {/* Editorial top eyebrow */}
+                  <div className="absolute top-5 left-5 lg:top-7 lg:left-7 flex items-center gap-2">
+                    <div className="w-8 h-px bg-[#C4956A]" />
+                    <span className="text-[10px] tracking-[0.22em] uppercase text-white/85">
+                      Portrait
+                    </span>
+                  </div>
+
+                  {/* Founder caption */}
+                  <div className="absolute bottom-5 left-5 right-5 lg:bottom-7 lg:left-7 lg:right-7 flex items-end justify-between text-white">
+                    <div>
+                      <p className="text-[10px] tracking-[0.22em] uppercase text-[#C4956A] mb-1.5">
+                        Fondatrice & Directrice Créative
                       </p>
-                    </motion.div>
+                      <p
+                        className="font-cormorant font-light leading-none"
+                        style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)" }}
+                      >
+                        Yasmine R.
+                      </p>
+                    </div>
+                    <div className="hidden sm:block text-right text-[9px] tracking-[0.28em] uppercase text-white/45">
+                      Maison Rebelle
+                      <br />
+                      Estd. 2022
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-cormorant font-medium text-charcoal text-xl">
-                      {member.name}
-                    </p>
-                    <p className="text-luxury-xs text-[#C4956A] mt-1">{member.role}</p>
-                  </div>
-                </motion.div>
+                </div>
+              </div>
+            </AnimatedSection>
+
+            {/* RIGHT — Manifesto */}
+            <div className="lg:col-span-6 flex flex-col gap-7">
+              <AnimatedSection delay={0.1}>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-px bg-[#C4956A]" />
+                  <span className="text-[10px] tracking-[0.22em] uppercase text-[#C4956A]">
+                    La Maison
+                  </span>
+                </div>
               </AnimatedSection>
-            ))}
+
+              <AnimatedSection delay={0.15}>
+                <h2
+                  className="font-cormorant font-light text-charcoal leading-[1.04]"
+                  style={{ fontSize: "clamp(2rem, 4.4vw, 3.5rem)" }}
+                >
+                  Une maison
+                  <br />
+                  <em className="not-italic font-semibold text-[#810B38]">
+                    pensée par des femmes,
+                  </em>
+                  <br />
+                  pour des femmes.
+                </h2>
+              </AnimatedSection>
+
+              <AnimatedSection delay={0.22}>
+                <p
+                  className="font-cormorant italic text-[#C4956A] tracking-wide select-none"
+                  style={{ fontSize: "clamp(1.05rem, 1.5vw, 1.4rem)" }}
+                  aria-label="Be bold. Be elegant. Be Rebelle."
+                >
+                  {BRAND_SIGNATURE}
+                </p>
+              </AnimatedSection>
+
+              <AnimatedSection delay={0.28}>
+                <div className="h-px w-16 bg-[#C4956A]/60" />
+              </AnimatedSection>
+
+              <AnimatedSection delay={0.32}>
+                <p className="font-montserrat text-charcoal/70 text-[15px] leading-[1.85] max-w-xl">
+                  Tout est parti d&apos;une frustration. Une femme marocaine
+                  moderne, talentueuse, ambitieuse — confrontée au même
+                  dilemme silencieux&nbsp;: assumer le luxe à plein tarif, ou se
+                  contenter de l&apos;ordinaire. Nous avons choisi une troisième
+                  voie.
+                </p>
+              </AnimatedSection>
+
+              <AnimatedSection delay={0.38}>
+                <p className="font-montserrat text-charcoal/70 text-[15px] leading-[1.85] max-w-xl">
+                  {BRAND_NAME_STYLIZED} n&apos;est pas une marque de sacs. C&apos;est
+                  l&apos;instant où tu poses ton sac sur la table et où la pièce
+                  change d&apos;air. C&apos;est la femme qui se tient un demi-pas
+                  plus droite parce qu&apos;elle sait ce qu&apos;elle porte.
+                </p>
+              </AnimatedSection>
+
+              {/* Secondary portraits — editorial polaroid pair */}
+              <AnimatedSection delay={0.5}>
+                <div className="mt-4">
+                  <p className="text-[10px] tracking-[0.22em] uppercase text-charcoal/45 mb-4">
+                    Les mains derrière la maison
+                  </p>
+                  <div className="grid grid-cols-2 gap-4 max-w-md">
+                    {secondaryPortraits.map((member) => (
+                      <div
+                        key={member.name}
+                        className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-[#FAF6F2]"
+                      >
+                        <Image
+                          src={member.image}
+                          alt={`${member.name} — ${member.role}`}
+                          fill
+                          sizes="(max-width: 1024px) 50vw, 240px"
+                          className="object-cover"
+                        />
+                        <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/85 via-black/30 to-transparent">
+                          <p className="font-cormorant text-white text-base leading-tight">
+                            {member.name}
+                          </p>
+                          <p className="text-[9px] tracking-[0.18em] uppercase text-[#C4956A]/90 mt-0.5">
+                            {member.role}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </AnimatedSection>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Morocco Inspiration */}
-      <section className="py-20 lg:py-28 bg-[#1A1A1A] overflow-hidden relative">
-        <div className="absolute inset-0 opacity-10">
-          <Image
-            src="/assets/images/about/maroc-bg.png"
-            alt="Maroc inspiration"
-            fill
-            className="object-cover"
-            sizes="100vw"
-          />
-        </div>
+      <section className="py-24 lg:py-32 bg-[#1A1A1A] overflow-hidden relative">
+        {/* Editorial radial wash — burgundy + gold */}
+        <div
+          className="absolute inset-0 opacity-50 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at 25% 50%, rgba(129,11,56,0.55) 0%, transparent 55%), radial-gradient(ellipse at 80% 80%, rgba(196,149,106,0.18) 0%, transparent 50%)",
+          }}
+        />
+        {/* Subtle architectural grid */}
+        <div
+          className="absolute inset-0 opacity-[0.06] pointer-events-none"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(196,149,106,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(196,149,106,0.5) 1px, transparent 1px)",
+            backgroundSize: "72px 72px",
+          }}
+        />
+        {/* Gold hairline accents */}
+        <div className="absolute top-0 left-0 w-1/3 h-px bg-gradient-to-r from-transparent via-[#C4956A]/30 to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-1/3 h-px bg-gradient-to-l from-transparent via-[#C4956A]/30 to-transparent pointer-events-none" />
+
         <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <AnimatedSection>
             <span className="text-luxury-xs text-[#C4956A] block mb-4">

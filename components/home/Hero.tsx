@@ -4,8 +4,13 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, MessageCircle } from "lucide-react";
-import { BRAND_NAME_STYLIZED, BRAND_TAGLINE, WHATSAPP_URL } from "@/lib/constants";
+import { ArrowRight, Shield } from "lucide-react";
+import {
+  BRAND_NAME_STYLIZED,
+  BRAND_TAGLINE,
+  BRAND_SIGNATURE,
+} from "@/lib/constants";
+import { getProduct } from "@/lib/products";
 
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -29,7 +34,7 @@ export default function Hero() {
         style={{ y: imageY }}
       >
         <Image
-          src="/assets/images/hero/hero-bg.png"
+          src="/assets/images/hero/hero-bg1.png"
           alt="Rebelle - Sacs premium"
           fill
           priority
@@ -109,11 +114,23 @@ export default function Hero() {
             </em>
           </motion.h1>
 
+          {/* Maison signature — accent line */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            className="font-cormorant italic text-[#C4956A] mb-6 tracking-wide select-none"
+            style={{ fontSize: "clamp(1rem, 1.6vw, 1.35rem)" }}
+            aria-label="Be bold. Be elegant. Be Rebelle."
+          >
+            {BRAND_SIGNATURE}
+          </motion.p>
+
           {/* Subheadline */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.9, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="font-montserrat font-light text-white/70 text-sm lg:text-base leading-relaxed mb-10 max-w-lg tracking-wide"
           >
             Sacs premium pour femmes modernes au Maroc.
@@ -125,13 +142,13 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.9, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col sm:flex-row gap-4"
           >
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
               <Link
-                href="/#collection"
-                className="btn-luxury inline-flex items-center gap-3 bg-[#810B38] text-white text-luxury-xs px-8 py-4 rounded-full shadow-burgundy hover:bg-[#5c0828] hover:shadow-burgundy-glow transition-all duration-300 group"
+                href="/collection"
+                className="inline-flex items-center gap-3 bg-[#810B38] text-white text-[11px] tracking-[0.18em] uppercase font-semibold px-8 py-4 rounded-full shadow-[0_8px_30px_rgba(129,11,56,0.35)] hover:bg-[#5c0828] transition-all duration-300 group"
               >
                 Découvrir la collection
                 <motion.div
@@ -144,15 +161,13 @@ export default function Hero() {
             </motion.div>
 
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-luxury inline-flex items-center gap-3 bg-transparent text-white border border-white/40 text-luxury-xs px-8 py-4 rounded-full hover:bg-white hover:text-[#810B38] hover:border-white transition-all duration-300"
+              <Link
+                href="/a-propos"
+                className="inline-flex items-center gap-3 bg-transparent text-white border border-white/40 text-[11px] tracking-[0.18em] uppercase font-medium px-8 py-4 rounded-full hover:bg-white hover:text-[#810B38] hover:border-white transition-all duration-300"
               >
-                <MessageCircle size={14} />
-                Commander maintenant
-              </a>
+                <Shield size={13} />
+                Pourquoi Rebelle ?
+              </Link>
             </motion.div>
           </motion.div>
 
@@ -190,19 +205,19 @@ export default function Hero() {
         <motion.div
           animate={{ y: [0, -12, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="glass rounded-2xl p-4 max-w-[200px]"
+          className="rounded-2xl p-4 max-w-[210px] bg-white/10 backdrop-blur-xl border border-white/15"
         >
-          <div className="w-full aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-[#810B38]/20 to-[#C4956A]/20 mb-3 image-reveal">
+          <div className="w-full aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-[#810B38]/20 to-[#C4956A]/20 mb-3">
             <Image
-              src="/assets/images/hero/card.png"
-              alt="Sac Rebelle"
+              src={getProduct("gucci-marmont-noir")?.images[0] || "/assets/images/products/gucci-marmont-noir/1.png"}
+              alt="Le Marmont Noir"
               width={200}
               height={267}
               className="w-full h-full object-cover"
             />
           </div>
-          <p className="font-cormorant text-white/90 text-sm font-medium">Le Classique Noir</p>
-          <p className="text-luxury-xs text-[#C4956A] mt-0.5">850 MAD</p>
+          <p className="font-cormorant text-white/95 text-sm font-medium">Le Marmont Noir</p>
+          <p className="text-[10px] tracking-[0.14em] uppercase text-[#C4956A] mt-1">Dès 469 DH</p>
         </motion.div>
       </motion.div>
 

@@ -2,7 +2,8 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { Plus, Minus } from "lucide-react";
+import Link from "next/link";
+import { Plus, Minus, ArrowRight } from "lucide-react";
 import { FAQ_ITEMS } from "@/lib/constants";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 
@@ -92,16 +93,15 @@ export default function FAQ() {
         {/* Contact prompt */}
         <AnimatedSection delay={0.3} className="mt-12 text-center">
           <p className="font-montserrat text-sm text-charcoal/50 mb-4">
-            Vous avez d&apos;autres questions ?
+            Tu as d&apos;autres questions ?
           </p>
-          <a
-            href="https://wa.me/212600000000"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-luxury inline-flex items-center gap-2 bg-[#810B38] text-white text-luxury-xs px-8 py-3.5 rounded-full shadow-burgundy hover:bg-[#5c0828] transition-all duration-300"
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 bg-[#810B38] text-white text-[11px] tracking-[0.18em] uppercase font-semibold px-8 py-3.5 rounded-full shadow-[0_6px_24px_rgba(129,11,56,0.25)] hover:bg-[#5c0828] transition-all duration-300"
           >
-            Contactez-nous via WhatsApp
-          </a>
+            Nous contacter
+            <ArrowRight size={12} />
+          </Link>
         </AnimatedSection>
       </div>
     </section>

@@ -8,99 +8,88 @@ import {
   useCallback,
   ReactNode,
 } from "react";
-import { Product } from "@/lib/products";
+import { OfferKey, OFFERS, Product, getProduct } from "@/lib/products";
 
 export type CartItem = {
-  product: Product;
-  quantity: number;
-  color: string;
+  slug: string;
+  offer: OfferKey;
 };
 
 type CartContextType = {
   items: CartItem[];
   count: number;
   total: number;
-  addItem: (product: Product, color: string, quantity?: number) => void;
-  removeItem: (productId: string, color: string) => void;
-  updateQuantity: (productId: string, color: string, quantity: number) => void;
+  addItem: (product: Product, offer?: OfferKey) => void;
+  removeItem: (slug: string) => void;
+  updateOffer: (slug: string, offer: OfferKey) => void;
   clearCart: () => void;
   isOpen: boolean;
   openCart: () => void;
   closeCart: () => void;
+  hasSlug: (slug: string) => boolean;
 };
 
 const CartContext = createContext<CartContextType | null>(null);
 
+const STORAGE_KEY = "rebelle-cart-v2";
+
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
 
-  // Persist cart to localStorage
   useEffect(() => {
-    const saved = localStorage.getItem("rebelle-cart");
-    if (saved) {
-      try {
-        setItems(JSON.parse(saved));
-      } catch {}
-    }
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved) as CartItem[];
+        const cleaned = parsed.filter(
+          (item) => getProduct(item.slug) && OFFERS[item.offer]
+        );
+        setItems(cleaned);
+      }
+    } catch {}
+    setHydrated(true);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("rebelle-cart", JSON.stringify(items));
-  }, [items]);
+    if (!hydrated) return;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  }, [items, hydrated]);
 
-  const count = items.reduce((sum, item) => sum + item.quantity, 0);
-  const total = items.reduce(
-    (sum, item) => sum + item.product.price * item.quantity,
-    0
-  );
+  const count = items.reduce((sum, item) => sum + OFFERS[item.offer].qty, 0);
+  const total = items.reduce((sum, item) => sum + OFFERS[item.offer].price, 0);
 
-  const addItem = useCallback(
-    (product: Product, color: string, quantity = 1) => {
-      setItems((prev) => {
-        const existing = prev.find(
-          (i) => i.product.id === product.id && i.color === color
+  const addItem = useCallback((product: Product, offer: OfferKey = "2pieces") => {
+    setItems((prev) => {
+      const existing = prev.find((i) => i.slug === product.slug);
+      if (existing) {
+        return prev.map((i) =>
+          i.slug === product.slug ? { ...i, offer } : i
         );
-        if (existing) {
-          return prev.map((i) =>
-            i.product.id === product.id && i.color === color
-              ? { ...i, quantity: i.quantity + quantity }
-              : i
-          );
-        }
-        return [...prev, { product, color, quantity }];
-      });
-      setIsOpen(true);
-    },
-    []
-  );
+      }
+      return [...prev, { slug: product.slug, offer }];
+    });
+    setIsOpen(true);
+  }, []);
 
-  const removeItem = useCallback((productId: string, color: string) => {
+  const removeItem = useCallback((slug: string) => {
+    setItems((prev) => prev.filter((i) => i.slug !== slug));
+  }, []);
+
+  const updateOffer = useCallback((slug: string, offer: OfferKey) => {
     setItems((prev) =>
-      prev.filter((i) => !(i.product.id === productId && i.color === color))
+      prev.map((i) => (i.slug === slug ? { ...i, offer } : i))
     );
   }, []);
-
-  const updateQuantity = useCallback(
-    (productId: string, color: string, quantity: number) => {
-      if (quantity <= 0) {
-        removeItem(productId, color);
-        return;
-      }
-      setItems((prev) =>
-        prev.map((i) =>
-          i.product.id === productId && i.color === color
-            ? { ...i, quantity }
-            : i
-        )
-      );
-    },
-    [removeItem]
-  );
 
   const clearCart = useCallback(() => setItems([]), []);
   const openCart = useCallback(() => setIsOpen(true), []);
   const closeCart = useCallback(() => setIsOpen(false), []);
+  const hasSlug = useCallback(
+    (slug: string) => items.some((i) => i.slug === slug),
+    [items]
+  );
 
   return (
     <CartContext.Provider
@@ -110,11 +99,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
         total,
         addItem,
         removeItem,
-        updateQuantity,
+        updateOffer,
         clearCart,
         isOpen,
         openCart,
         closeCart,
+        hasSlug,
       }}
     >
       {children}

@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
-import { Menu, X, ShoppingBag } from "lucide-react";
-import { BRAND_NAME_STYLIZED, WHATSAPP_URL, INSTAGRAM_URL } from "@/lib/constants";
+import { Menu, X, ShoppingBag, ArrowRight } from "lucide-react";
+import { INSTAGRAM_URL, ANNOUNCEMENT_MESSAGES } from "@/lib/constants";
 import { useCart } from "@/context/CartContext";
 
 function InstagramIcon({ size = 16 }: { size?: number }) {
@@ -26,6 +27,36 @@ function InstagramIcon({ size = 16 }: { size?: number }) {
   );
 }
 
+function AnnouncementBar() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      setIndex((i) => (i + 1) % ANNOUNCEMENT_MESSAGES.length);
+    }, 4000);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <div className="bg-[#810B38] text-white">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 h-9 flex items-center justify-center overflow-hidden relative">
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={index}
+            initial={{ y: 12, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -12, opacity: 0 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="text-[10px] sm:text-[11px] tracking-[0.18em] uppercase font-medium text-center"
+          >
+            {ANNOUNCEMENT_MESSAGES[index]}
+          </motion.p>
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -33,6 +64,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -49,9 +81,9 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   const navLinks = [
-    { label: "Collection", href: "/#collection" },
+    { label: "Collection", href: "/collection" },
     { label: "Notre Histoire", href: "/a-propos" },
-    { label: "Livraison", href: "/#livraison" },
+    { label: "Contact", href: "/contact" },
   ];
 
   const textColor = scrolled
@@ -65,50 +97,62 @@ export default function Navbar() {
       <motion.header
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
             ? "bg-white/95 backdrop-blur-xl shadow-soft border-b border-[#F0E9E1]"
             : "bg-transparent"
         }`}
       >
+        <AnnouncementBar />
+
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
-            {/* Left Nav */}
+            {/* Left nav (desktop) */}
             <nav className="hidden lg:flex items-center gap-8">
               {navLinks.slice(0, 2).map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
-                  className={`text-luxury-xs luxury-underline transition-colors duration-300 ${textColor}`}
+                  className={`text-[11px] tracking-[0.18em] uppercase luxury-underline transition-colors duration-300 ${textColor}`}
                 >
                   {link.label}
                 </Link>
               ))}
             </nav>
 
-            {/* Logo Center */}
+            {/* Logo center */}
             <Link
               href="/"
-              className="absolute left-1/2 -translate-x-1/2 text-center"
+              className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center group"
+              aria-label="Rebelle — Accueil"
             >
-              <motion.span
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-                className={`font-cormorant font-bold tracking-wider transition-colors duration-300 ${
-                  scrolled ? "text-[#810B38]" : "text-white"
-                }`}
-                style={{ fontSize: "clamp(1.25rem, 3vw, 1.75rem)" }}
+              <motion.div
+                whileHover={{ scale: 1.04 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                className="relative h-9 lg:h-11 w-auto flex items-center"
               >
-                {BRAND_NAME_STYLIZED}
-              </motion.span>
+                <Image
+                  src="/assets/images/Logo/logo.png"
+                  alt="Rebelle"
+                  width={180}
+                  height={64}
+                  priority
+                  sizes="(max-width: 1024px) 144px, 180px"
+                  className={`h-9 lg:h-11 w-auto object-contain transition-[filter] duration-500 ${
+                    scrolled
+                      ? "[filter:none]"
+                      : "[filter:brightness(0)_invert(1)] drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)]"
+                  }`}
+                />
+              </motion.div>
             </Link>
 
-            {/* Right Nav — Desktop */}
-            <div className="hidden lg:flex items-center gap-5">
+            {/* Right nav (desktop) */}
+            <div className="hidden lg:flex items-center gap-6">
               <Link
                 href={navLinks[2].href}
-                className={`text-luxury-xs luxury-underline transition-colors duration-300 ${textColor}`}
+                className={`text-[11px] tracking-[0.18em] uppercase luxury-underline transition-colors duration-300 ${textColor}`}
               >
                 {navLinks[2].label}
               </Link>
@@ -118,18 +162,17 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className={`transition-colors duration-300 ${iconColor} hover:text-[#810B38]`}
+                className={`transition-colors duration-300 ${iconColor} hover:text-[#C4956A]`}
               >
                 <InstagramIcon size={16} />
               </a>
 
-              {/* Cart Button */}
               <motion.button
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.92 }}
                 onClick={openCart}
                 aria-label={`Panier (${count} article${count !== 1 ? "s" : ""})`}
-                className={`relative transition-colors duration-300 ${iconColor} hover:text-[#810B38]`}
+                className={`relative transition-colors duration-300 ${iconColor} hover:text-[#C4956A]`}
               >
                 <ShoppingBag size={18} />
                 <AnimatePresence>
@@ -139,7 +182,11 @@ export default function Navbar() {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       exit={{ scale: 0 }}
-                      transition={{ type: "spring", stiffness: 500, damping: 25 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 700,
+                        damping: 30,
+                      }}
                       className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-[#810B38] text-white flex items-center justify-center font-montserrat font-bold"
                       style={{ fontSize: "9px" }}
                     >
@@ -148,23 +195,11 @@ export default function Navbar() {
                   )}
                 </AnimatePresence>
               </motion.button>
-
-              <motion.a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-[#810B38] text-white text-luxury-xs px-5 py-2.5 rounded-full hover:bg-[#5c0828] transition-all duration-300 shadow-burgundy hover:shadow-burgundy-glow"
-              >
-                Commander
-              </motion.a>
             </div>
 
-            {/* Mobile Right — cart + burger */}
-            <div className="lg:hidden flex items-center gap-3 ml-auto">
+            {/* Mobile right */}
+            <div className="lg:hidden flex items-center gap-4 ml-auto">
               <motion.button
-                whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.92 }}
                 onClick={openCart}
                 aria-label="Panier"
@@ -178,7 +213,11 @@ export default function Navbar() {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       exit={{ scale: 0 }}
-                      transition={{ type: "spring", stiffness: 500, damping: 25 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 700,
+                        damping: 30,
+                      }}
                       className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-[#810B38] text-white flex items-center justify-center font-montserrat font-bold"
                       style={{ fontSize: "9px" }}
                     >
@@ -200,7 +239,7 @@ export default function Navbar() {
         </div>
       </motion.header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <>
@@ -216,13 +255,17 @@ export default function Navbar() {
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
               className="fixed top-0 right-0 bottom-0 w-4/5 max-w-sm bg-white z-50 flex flex-col lg:hidden shadow-2xl"
             >
               <div className="flex items-center justify-between p-6 border-b border-[#F0E9E1]">
-                <span className="font-cormorant font-bold text-[#810B38] text-2xl">
-                  {BRAND_NAME_STYLIZED}
-                </span>
+                <Image
+                  src="/assets/images/Logo/logo.png"
+                  alt="Rebelle"
+                  width={160}
+                  height={56}
+                  className="h-9 w-auto object-contain"
+                />
                 <button
                   onClick={() => setMobileOpen(false)}
                   className="text-charcoal hover:text-[#810B38] transition-colors"
@@ -250,14 +293,16 @@ export default function Navbar() {
                   </motion.div>
                 ))}
 
-                {/* Mobile cart link */}
                 <motion.div
                   initial={{ opacity: 0, x: 30 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 + navLinks.length * 0.08, duration: 0.5 }}
+                  transition={{ delay: 0.4, duration: 0.5 }}
                 >
                   <button
-                    onClick={() => { setMobileOpen(false); openCart(); }}
+                    onClick={() => {
+                      setMobileOpen(false);
+                      openCart();
+                    }}
                     className="w-full flex items-center gap-3 py-4 font-cormorant text-2xl text-charcoal hover:text-[#810B38] transition-colors border-b border-[#F0E9E1] text-left"
                   >
                     Mon Panier
@@ -271,24 +316,22 @@ export default function Navbar() {
               </nav>
 
               <div className="p-8 flex flex-col gap-3">
-                <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-luxury flex items-center justify-center gap-2 bg-[#810B38] text-white text-luxury-xs px-6 py-4 rounded-full shadow-burgundy hover:bg-[#5c0828] transition-all duration-300"
+                <Link
+                  href="/collection"
                   onClick={() => setMobileOpen(false)}
+                  className="flex items-center justify-center gap-2 bg-[#810B38] text-white text-[11px] tracking-[0.18em] uppercase px-6 py-4 rounded-full shadow-[0_6px_24px_rgba(129,11,56,0.25)] hover:bg-[#5c0828] transition-all duration-300"
                 >
-                  <ShoppingBag size={14} />
-                  Commander via WhatsApp
-                </a>
+                  Voir la collection
+                  <ArrowRight size={12} />
+                </Link>
                 <a
                   href={INSTAGRAM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 border border-[#810B38] text-[#810B38] text-luxury-xs px-6 py-4 rounded-full hover:bg-[#FAF6F2] transition-all duration-300"
+                  className="flex items-center justify-center gap-2 border border-[#810B38] text-[#810B38] text-[11px] tracking-[0.18em] uppercase px-6 py-4 rounded-full hover:bg-[#FAF6F2] transition-all duration-300"
                   onClick={() => setMobileOpen(false)}
                 >
-                  <InstagramIcon size={14} />
+                  <InstagramIcon size={12} />
                   Suivre sur Instagram
                 </a>
               </div>

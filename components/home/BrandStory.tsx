@@ -5,7 +5,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import AnimatedSection from "@/components/ui/AnimatedSection";
-import { BRAND_NAME_STYLIZED } from "@/lib/constants";
+import { BRAND_NAME_STYLIZED, BRAND_SIGNATURE } from "@/lib/constants";
 
 export default function BrandStory() {
   const ref = useRef<HTMLDivElement>(null);
@@ -24,7 +24,7 @@ export default function BrandStory() {
             <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-card">
               <motion.div className="absolute inset-0" style={{ scale: imageScale }}>
                 <Image
-                  src="/assets/images/brand-story/main.png"
+                  src="/assets/images/brand-story/a_bghet_had_image_high.png"
                   alt="L'histoire Rebelle"
                   fill
                   className="object-cover"
@@ -40,12 +40,15 @@ export default function BrandStory() {
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute -bottom-6 -right-4 lg:-right-8 glass rounded-2xl p-6 max-w-[200px] shadow-luxury"
+              className="absolute -bottom-6 -right-4 lg:-right-8 glass rounded-2xl p-6 max-w-[220px] shadow-luxury"
             >
-              <p className="font-cormorant italic text-charcoal text-lg leading-tight mb-2">
-                &ldquo;Be bold,<br />Be elegant.&rdquo;
+              <p
+                className="font-cormorant italic text-[#810B38] text-base lg:text-lg leading-snug mb-2 tracking-wide select-none"
+                aria-label="Be bold. Be elegant. Be Rebelle."
+              >
+                {BRAND_SIGNATURE}
               </p>
-              <p className="text-luxury-xs text-[#810B38]">{BRAND_NAME_STYLIZED}</p>
+              <p className="text-luxury-xs text-charcoal/55">{BRAND_NAME_STYLIZED}</p>
             </motion.div>
 
             {/* Stats card */}

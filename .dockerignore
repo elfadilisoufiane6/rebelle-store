@@ -1,0 +1,44 @@
+node_modules
+.next
+out
+dist
+build
+
+# env — never bake secrets into the image; NEXT_PUBLIC_* come via --build-arg
+.env
+.env.local
+.env.development
+.env.production
+.env.*.local
+
+# git
+.git
+.gitignore
+.gitattributes
+
+# editor / OS
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# docker
+Dockerfile
+.dockerignore
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# docs / private scratch
+docs
+templates
+PROMPT.md
+README.md
+
+# typescript build cache
+*.tsbuildinfo

@@ -9,8 +9,8 @@ export const INSTAGRAM_URL = "https://www.instagram.com/rebelle.v3";
 
 export const WHATSAPP_NUMBER = "+212 622 049 015";
 export const WHATSAPP_URL = "https://wa.me/212622049015";
-export const CONTACT_EMAIL = "contact@rebelle-store.com";
-export const CONTACT_EMAIL_URL = "mailto:contact@rebelle-store.com";
+export const CONTACT_EMAIL = "contact@rebelle.ma";
+export const CONTACT_EMAIL_URL = "mailto:contact@rebelle.ma";
 
 export const NAV_LINKS = [
   { label: "Collection", href: "/collection" },

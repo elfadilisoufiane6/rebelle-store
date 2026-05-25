@@ -23,6 +23,7 @@ export default function Hero() {
           alt="Rebelle - Sacs premium"
           fill
           priority
+          quality={90}
           className="object-cover opacity-60"
           sizes="100vw"
         />

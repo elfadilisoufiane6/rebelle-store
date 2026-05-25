@@ -208,19 +208,25 @@ export default function AProposPage() {
               <AnimatedSection delay={0.5}>
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    { number: "2022", label: "Année de fondation" },
-                    { number: "500+", label: "Femmes élégantes" },
-                    { number: "100%", label: "Satisfaction client" },
-                    { number: "Maroc", label: "Livraison nationale" },
+                    { num: "2022", accent: "", label: "Année de fondation" },
+                    { num: "500", accent: "+", label: "Femmes élégantes" },
+                    { num: "100", accent: "%", label: "Satisfaction client" },
+                    { num: "Maroc", accent: "", label: "Livraison nationale" },
                   ].map((stat) => (
                     <div
                       key={stat.label}
-                      className="bg-[#FAF6F2] rounded-2xl p-4 text-center"
+                      className="bg-[#FAF6F2] rounded-2xl py-5 px-4 text-center"
                     >
-                      <p className="font-cormorant font-bold text-[#810B38] text-2xl">
-                        {stat.number}
+                      <p className="font-cormorant font-light text-[#810B38] text-[2.25rem] leading-none tabular-nums tracking-tight">
+                        {stat.num}
+                        {stat.accent && (
+                          <span className="text-[#C4956A]">{stat.accent}</span>
+                        )}
                       </p>
-                      <p className="text-luxury-xs text-charcoal/40 mt-1">{stat.label}</p>
+                      <span className="block w-6 h-px bg-[#C4956A]/50 mx-auto mt-3" />
+                      <p className="text-[9px] tracking-[0.22em] uppercase text-charcoal/45 mt-2.5">
+                        {stat.label}
+                      </p>
                     </div>
                   ))}
                 </div>

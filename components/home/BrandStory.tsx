@@ -47,10 +47,15 @@ export default function BrandStory() {
               whileInView={{ opacity: 1, scale: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute top-8 -left-4 lg:-left-8 bg-[#810B38] rounded-2xl p-4 shadow-burgundy"
+              className="absolute top-8 -left-4 lg:-left-8 bg-[#810B38] rounded-2xl py-4 px-5 shadow-burgundy"
             >
-              <p className="font-cormorant font-bold text-white text-3xl">500+</p>
-              <p className="text-luxury-xs text-white/70 mt-0.5">Clientes ravies</p>
+              <p className="font-cormorant font-light text-white text-[2.5rem] leading-none tabular-nums tracking-tight">
+                500<span className="text-[#C4956A]">+</span>
+              </p>
+              <span className="block w-6 h-px bg-[#C4956A]/70 mt-2.5" />
+              <p className="text-[9px] tracking-[0.22em] uppercase text-white/65 mt-2">
+                Clientes ravies
+              </p>
             </motion.div>
           </AnimatedSection>
 
@@ -93,19 +98,23 @@ export default function BrandStory() {
               </p>
             </AnimatedSection>
 
-            {/* Values */}
+            {/* Values — editorial stats */}
             <AnimatedSection delay={0.5}>
               <div className="grid grid-cols-3 gap-4">
                 {[
-                  { value: "100%", label: "Qualité garantie" },
-                  { value: "2-4j", label: "Livraison Maroc" },
-                  { value: "500+", label: "Femmes élégantes" },
+                  { num: "100", accent: "%", label: "Qualité garantie" },
+                  { num: "2-4", accent: "j", label: "Livraison Maroc" },
+                  { num: "500", accent: "+", label: "Femmes élégantes" },
                 ].map((stat) => (
                   <div key={stat.label} className="text-center">
-                    <p className="font-cormorant font-bold text-[#810B38] text-2xl">
-                      {stat.value}
+                    <p className="font-cormorant font-light text-[#810B38] text-[2.25rem] sm:text-[2.5rem] leading-none tabular-nums tracking-tight">
+                      {stat.num}
+                      <span className="text-[#C4956A]">{stat.accent}</span>
                     </p>
-                    <p className="text-luxury-xs text-charcoal/40 mt-1">{stat.label}</p>
+                    <span className="block w-6 h-px bg-[#C4956A]/50 mx-auto mt-3" />
+                    <p className="text-[9px] tracking-[0.22em] uppercase text-charcoal/45 mt-2.5">
+                      {stat.label}
+                    </p>
                   </div>
                 ))}
               </div>

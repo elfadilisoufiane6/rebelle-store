@@ -73,15 +73,19 @@ export default function LuxuryBanner() {
             <AnimatedSection direction="left" delay={0.3}>
               <div className="grid grid-cols-3 gap-4 lg:gap-6 pt-3 max-w-xl">
                 {[
-                  { value: "100%", label: "Cuir vérifiable" },
-                  { value: "COD", label: "Paiement livraison" },
-                  { value: "2-4j", label: "Maroc entier" },
+                  { num: "100", accent: "%", label: "Cuir vérifiable" },
+                  { num: "COD", accent: "", label: "Paiement livraison" },
+                  { num: "2-4", accent: "j", label: "Maroc entier" },
                 ].map((pillar) => (
-                  <div key={pillar.label} className="flex flex-col gap-1">
-                    <span className="font-cormorant font-semibold text-white text-2xl lg:text-3xl">
-                      {pillar.value}
+                  <div key={pillar.label} className="flex flex-col">
+                    <span className="font-cormorant font-light text-white text-[2.5rem] lg:text-[3rem] leading-none tabular-nums tracking-tight">
+                      {pillar.num}
+                      {pillar.accent && (
+                        <span className="text-[#C4956A]">{pillar.accent}</span>
+                      )}
                     </span>
-                    <span className="text-[10px] tracking-[0.18em] uppercase text-white/45">
+                    <span className="block w-6 h-px bg-[#C4956A]/60 mt-3" />
+                    <span className="text-[9px] tracking-[0.22em] uppercase text-white/50 mt-2.5">
                       {pillar.label}
                     </span>
                   </div>

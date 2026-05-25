@@ -17,13 +17,13 @@ const lookbookMoments = [
     span: "md:row-span-2 aspect-[3/4] md:aspect-auto md:h-full",
   },
   {
-    src: "/assets/images/gallery/4.png",
+    src: "/assets/images/gallery/4.jpeg",
     moment: "L'après-midi",
     slug: "lv-carryall",
     span: "aspect-[4/3]",
   },
   {
-    src: "/assets/images/gallery/5.jpeg",
+    src: "/assets/images/gallery/3.png",
     moment: "La soirée",
     slug: "lv-catchy-pm",
     span: "aspect-[4/3]",

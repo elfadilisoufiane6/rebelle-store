@@ -39,15 +39,15 @@ function AnnouncementBar() {
 
   return (
     <div className="bg-[#810B38] text-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 h-9 flex items-center justify-center overflow-hidden relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 sm:h-9 flex items-center justify-center overflow-hidden relative">
         <AnimatePresence mode="wait">
           <motion.p
             key={index}
-            initial={{ y: 12, opacity: 0 }}
+            initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -12, opacity: 0 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[10px] sm:text-[11px] tracking-[0.18em] uppercase font-medium text-center"
+            exit={{ y: -10, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="text-[9px] sm:text-[11px] tracking-[0.12em] sm:tracking-[0.18em] uppercase font-medium text-center whitespace-nowrap overflow-hidden text-ellipsis max-w-full px-2"
           >
             {ANNOUNCEMENT_MESSAGES[index]}
           </motion.p>

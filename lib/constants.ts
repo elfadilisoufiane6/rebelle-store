@@ -19,9 +19,9 @@ export const NAV_LINKS = [
 ];
 
 export const ANNOUNCEMENT_MESSAGES = [
-  "Livraison gratuite partout au Maroc · Paiement à la livraison",
-  "2 sacs achetés = 239 DH d'économie · Voir l'offre",
-  "Retour sous 7 jours, satisfaction garantie · 500+ clientes satisfaites",
+  "Livraison gratuite · Paiement à la livraison",
+  "2 sacs = 699 DH · Tu économises 239 DH",
+  "Retour 7 jours · 500+ Marocaines nous font confiance",
 ];
 
 export const TRUST_ITEMS = [

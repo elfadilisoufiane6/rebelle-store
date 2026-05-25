@@ -50,8 +50,11 @@ async function compressOne(file) {
 
   let buffer;
   if (ext === '.png') {
+    // palette: false → lossless. palette mode produced banding on
+    // photographic backgrounds (hero, brand-story). For real shrinkage
+    // on photo PNGs, convert to .jpg manually outside this script.
     buffer = await pipeline
-      .png({ compressionLevel: PNG_COMPRESSION, palette: true, effort: 10 })
+      .png({ compressionLevel: PNG_COMPRESSION, palette: false, effort: 10 })
       .toBuffer();
   } else {
     // jpg / jpeg / jfif → mozjpeg, kept under original extension

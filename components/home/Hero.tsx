@@ -19,7 +19,7 @@ export default function Hero() {
       {/* Background Image — static (no scroll-driven parallax) */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/assets/images/hero/hero-bg1.png"
+          src="/assets/images/hero/hero-bg1.jpg"
           alt="Rebelle - Sacs premium"
           fill
           priority

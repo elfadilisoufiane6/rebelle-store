@@ -55,14 +55,10 @@ export default function Testimonials() {
 
         {/* Main Testimonial Slider */}
         <div className="relative max-w-3xl mx-auto">
-          {/* Quote Icon */}
-          <motion.div
-            animate={{ scale: [1, 1.05, 1], opacity: [0.3, 0.5, 0.3] }}
-            transition={{ duration: 4, repeat: Infinity }}
-            className="absolute -top-4 left-1/2 -translate-x-1/2 text-[#810B38]/20 z-0"
-          >
+          {/* Quote Icon — static, no infinite pulse */}
+          <div className="absolute -top-4 left-1/2 -translate-x-1/2 text-[#810B38]/20 z-0">
             <Quote size={80} />
-          </motion.div>
+          </div>
 
           {/* Testimonial Card */}
           <div className="relative z-10 min-h-[280px] flex items-center justify-center">

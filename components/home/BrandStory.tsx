@@ -1,36 +1,26 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { BRAND_NAME_STYLIZED, BRAND_SIGNATURE } from "@/lib/constants";
 
 export default function BrandStory() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1.1, 1.0]);
-
   return (
-    <section ref={ref} className="py-20 lg:py-32 bg-[#FAF6F2] overflow-hidden">
+    <section className="py-20 lg:py-32 bg-[#FAF6F2] overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Image Side */}
           <AnimatedSection direction="left" className="relative">
             <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-card">
-              <motion.div className="absolute inset-0" style={{ scale: imageScale }}>
-                <Image
-                  src="/assets/images/brand-story/a_bghet_had_image_high.png"
-                  alt="L'histoire Rebelle"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </motion.div>
+              <Image
+                src="/assets/images/brand-story/a_bghet_had_image_high.png"
+                alt="L'histoire Rebelle"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-[#810B38]/40 via-transparent to-transparent" />
             </div>
 

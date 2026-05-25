@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
@@ -11,22 +10,13 @@ import { BRAND_SIGNATURE } from "@/lib/constants";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function LuxuryBanner() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["-10%", "15%"]);
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.55, 0.4, 0.6]);
-
   return (
     <section
-      ref={ref}
       className="relative overflow-hidden bg-[#0d0508]"
       aria-label="Manifeste Rebelle"
     >
-      {/* Parallax background */}
-      <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
+      {/* Static background — no scroll parallax */}
+      <div className="absolute inset-0 z-0">
         <Image
           src="/assets/images/hero/hero-bg 2.png"
           alt=""
@@ -35,12 +25,9 @@ export default function LuxuryBanner() {
           className="object-cover"
           sizes="100vw"
         />
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/30"
-          style={{ opacity: overlayOpacity }}
-        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0d0508] via-transparent to-transparent" />
-      </motion.div>
+      </div>
 
       {/* Top + bottom hairlines */}
       <div className="relative z-10 pointer-events-none">
@@ -165,11 +152,7 @@ export default function LuxuryBanner() {
               </div>
 
               {/* Gold accent dot */}
-              <motion.div
-                animate={{ scale: [1, 1.1, 1], opacity: [0.6, 1, 0.6] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-3 -right-3 w-6 h-6 rounded-full bg-[#C4956A] shadow-[0_0_24px_rgba(196,149,106,0.55)]"
-              />
+              <div className="absolute -top-3 -right-3 w-6 h-6 rounded-full bg-[#C4956A] shadow-[0_0_24px_rgba(196,149,106,0.55)]" />
             </div>
           </motion.div>
         </div>

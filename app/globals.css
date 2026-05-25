@@ -237,3 +237,16 @@ a:focus-visible {
 img {
   transition: opacity 0.4s ease;
 }
+
+/* Respect users who request reduced motion (OS-level accessibility setting).
+   Snappy, instant content. Overrides Framer Motion and CSS transitions. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

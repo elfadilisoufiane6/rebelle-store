@@ -76,32 +76,12 @@ export default function CollectionPage() {
           </AnimatedSection>
         </section>
 
-        {/* Hero header */}
-        <section className="max-w-4xl mx-auto px-6 lg:px-8 text-center mb-16 lg:mb-20">
+        {/* Section label only — let the photography do the talking */}
+        <section className="max-w-4xl mx-auto px-6 lg:px-8 text-center mb-12 lg:mb-16">
           <AnimatedSection>
-            <p className="text-[10px] tracking-[0.18em] uppercase text-[#C4956A] mb-4">
-              La collection complète
-            </p>
-            <h1
-              className="font-cormorant font-medium text-charcoal leading-[1.05]"
-              style={{ fontSize: "clamp(2.75rem, 6vw, 5rem)" }}
-            >
-              Six pièces.
-              <br />
-              <em className="not-italic text-[#810B38] font-semibold">
-                Un seul niveau d&apos;exigence.
-              </em>
+            <h1 className="text-[10px] tracking-[0.28em] uppercase text-[#C4956A]">
+              Collection
             </h1>
-            <p className="font-montserrat text-sm text-charcoal/55 leading-relaxed max-w-xl mx-auto mt-6">
-              Chaque sac Rebelle est choisi pour sa matière, sa silhouette et la
-              façon dont il transforme une tenue. Paiement à la livraison sur
-              chaque commande — tu vois, tu touches, tu paies.
-            </p>
-            <div className="flex items-center justify-center gap-6 mt-8 text-[10px] tracking-[0.18em] uppercase text-charcoal/55">
-              <span>· Dès 469 DH</span>
-              <span>· 2-4 jours</span>
-              <span>· COD</span>
-            </div>
           </AnimatedSection>
         </section>
 
@@ -117,21 +97,8 @@ export default function CollectionPage() {
         {/* Shop the look — lifestyle imagery paired with featured products */}
         <section className="max-w-7xl mx-auto px-6 lg:px-8 mt-24 lg:mt-32">
           <AnimatedSection className="text-center mb-10 lg:mb-12">
-            <p className="text-[10px] tracking-[0.18em] uppercase text-[#C4956A] mb-3">
-              Shop the look
-            </p>
-            <h2
-              className="font-cormorant font-medium text-charcoal leading-tight"
-              style={{ fontSize: "clamp(1.85rem, 3.6vw, 2.75rem)" }}
-            >
-              Pensé pour être porté,
-              <br />
-              <em className="not-italic text-[#810B38] font-semibold">
-                pas seulement regardé.
-              </em>
-            </h2>
-            <p className="font-montserrat text-[12px] text-charcoal/50 mt-3 max-w-md mx-auto">
-              Trois moments. Trois pièces signature. Touche pour découvrir.
+            <p className="text-[10px] tracking-[0.28em] uppercase text-[#C4956A]">
+              Lookbook
             </p>
           </AnimatedSection>
 
@@ -206,25 +173,26 @@ export default function CollectionPage() {
           </AnimatedSection>
         </section>
 
-        {/* Bottom trust band */}
+        {/* Bottom trust band — editorial stats */}
         <section className="max-w-5xl mx-auto px-6 lg:px-8 mt-24 lg:mt-32">
           <AnimatedSection>
-            <div className="rounded-3xl bg-[#FAF6F2] border border-[#F0E9E1] p-8 lg:p-12 text-center">
-              <p className="font-cormorant italic text-[#C4956A] text-xl">
-                «&nbsp;Tu paies quand le sac est dans tes mains.&nbsp;»
-              </p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
+            <div className="rounded-3xl bg-[#FAF6F2] border border-[#F0E9E1] py-12 lg:py-16 px-8">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                 {[
-                  { value: "500+", label: "clientes satisfaites" },
-                  { value: "4.9/5", label: "note moyenne" },
-                  { value: "93%", label: "livraisons à temps" },
-                  { value: "7 jours", label: "retour garanti" },
+                  { num: "500", accent: "+", label: "Clientes" },
+                  { num: "4.9", accent: "", label: "Note moyenne" },
+                  { num: "93", accent: "%", label: "À temps" },
+                  { num: "7", accent: "j", label: "Retour" },
                 ].map((stat) => (
                   <div key={stat.label} className="text-center">
-                    <p className="font-cormorant font-bold text-[#810B38] text-3xl lg:text-4xl">
-                      {stat.value}
+                    <p className="font-cormorant font-light text-[#810B38] text-[2.5rem] lg:text-[3rem] leading-none tabular-nums tracking-tight">
+                      {stat.num}
+                      {stat.accent && (
+                        <span className="text-[#C4956A]">{stat.accent}</span>
+                      )}
                     </p>
-                    <p className="text-[10px] tracking-[0.18em] uppercase text-charcoal/55 mt-1">
+                    <span className="block w-6 h-px bg-[#C4956A]/50 mx-auto mt-3" />
+                    <p className="text-[9px] tracking-[0.22em] uppercase text-charcoal/45 mt-2.5">
                       {stat.label}
                     </p>
                   </div>

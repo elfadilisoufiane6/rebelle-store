@@ -60,75 +60,41 @@ export default function BrandStory() {
           </AnimatedSection>
 
           {/* Content Side */}
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-10">
             <AnimatedSection delay={0.1}>
-              <span className="text-luxury-xs text-[#C4956A]">Notre Histoire</span>
+              <span className="text-[10px] tracking-[0.28em] uppercase text-[#C4956A]">
+                La Maison
+              </span>
             </AnimatedSection>
 
             <AnimatedSection delay={0.2}>
               <h2
-                className="font-cormorant font-light text-charcoal leading-tight"
-                style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)" }}
+                className="font-cormorant font-light text-charcoal leading-[1.05]"
+                style={{ fontSize: "clamp(1.85rem, 3.6vw, 2.75rem)" }}
               >
-                Née d&apos;une passion
+                L&apos;élégance,
                 <br />
                 <em className="not-italic font-semibold text-[#810B38]">
-                  pour l&apos;élégance.
+                  sans compromis.
                 </em>
               </h2>
             </AnimatedSection>
 
-            <div className="luxury-divider" />
-
             <AnimatedSection delay={0.3}>
-              <p className="font-montserrat text-sm text-charcoal/60 leading-relaxed">
-                {BRAND_NAME_STYLIZED} est née d&apos;un rêve simple : offrir aux femmes marocaines
-                des sacs d&apos;une qualité internationale, avec une âme locale. Chaque pièce
-                que nous créons est une déclaration de style — conçue pour la femme moderne
-                qui refuse de choisir entre beauté et substance.
+              <p className="font-montserrat text-[15px] text-charcoal/65 leading-[1.85] max-w-md">
+                Maison {BRAND_NAME_STYLIZED} — sacs en cuir véritable,
+                pensés à Casablanca pour la femme moderne. Tu paies à la
+                livraison.
               </p>
             </AnimatedSection>
 
             <AnimatedSection delay={0.4}>
-              <p className="font-montserrat text-sm text-charcoal/60 leading-relaxed">
-                Nous croyons que l&apos;accessoire parfait ne complète pas seulement une tenue
-                — il révèle une personnalité. C&apos;est pourquoi chaque sac {BRAND_NAME_STYLIZED}
-                est pensé avec soin, confectionné avec des matériaux d&apos;exception et livré
-                dans un emballage qui est lui-même une expérience.
-              </p>
-            </AnimatedSection>
-
-            {/* Values — editorial stats */}
-            <AnimatedSection delay={0.5}>
-              <div className="grid grid-cols-3 gap-4">
-                {[
-                  { num: "100", accent: "%", label: "Qualité garantie" },
-                  { num: "2-4", accent: "j", label: "Livraison Maroc" },
-                  { num: "500", accent: "+", label: "Femmes élégantes" },
-                ].map((stat) => (
-                  <div key={stat.label} className="text-center">
-                    <p className="font-cormorant font-light text-[#810B38] text-[2.25rem] sm:text-[2.5rem] leading-none tabular-nums tracking-tight">
-                      {stat.num}
-                      <span className="text-[#C4956A]">{stat.accent}</span>
-                    </p>
-                    <span className="block w-6 h-px bg-[#C4956A]/50 mx-auto mt-3" />
-                    <p className="text-[9px] tracking-[0.22em] uppercase text-charcoal/45 mt-2.5">
-                      {stat.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </AnimatedSection>
-
-            <AnimatedSection delay={0.6}>
               <Link
                 href="/a-propos"
-                className="btn-luxury inline-flex items-center gap-2 border border-[#810B38] text-[#810B38] text-luxury-xs px-8 py-3.5 rounded-full hover:bg-[#810B38] hover:text-white transition-all duration-300 group"
+                className="inline-flex items-center gap-3 text-[#810B38] text-[10px] tracking-[0.22em] uppercase font-medium hover:gap-4 transition-all duration-300 w-fit"
               >
-                Découvrir notre histoire
-                <span className="group-hover:translate-x-1 transition-transform duration-300">
-                  →
-                </span>
+                Notre histoire
+                <span aria-hidden>→</span>
               </Link>
             </AnimatedSection>
           </div>

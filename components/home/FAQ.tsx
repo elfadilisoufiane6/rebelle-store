@@ -14,17 +14,10 @@ export default function FAQ() {
     <section id="faq" className="py-20 lg:py-32 bg-white">
       <div className="max-w-3xl mx-auto px-6 lg:px-8">
         {/* Header */}
-        <AnimatedSection className="text-center mb-14">
-          <span className="text-luxury-xs text-[#C4956A] block mb-4">Questions fréquentes</span>
-          <h2
-            className="font-cormorant font-light text-charcoal"
-            style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
-          >
-            Tout ce que vous
-            <br />
-            <em className="not-italic font-semibold text-[#810B38]">devez savoir</em>
-          </h2>
-          <div className="luxury-divider-center mt-4" />
+        <AnimatedSection className="text-center mb-12">
+          <span className="text-[10px] tracking-[0.28em] uppercase text-[#C4956A]">
+            Questions
+          </span>
         </AnimatedSection>
 
         {/* Accordion */}

@@ -42,15 +42,10 @@ export default function Testimonials() {
     <section className="py-20 lg:py-32 bg-[#FAF6F2] overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
-        <AnimatedSection className="text-center mb-16">
-          <span className="text-luxury-xs text-[#C4956A] block mb-4">Témoignages</span>
-          <h2
-            className="font-cormorant font-light text-charcoal"
-            style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
-          >
-            Ce qu&apos;elles disent de nous
-          </h2>
-          <div className="luxury-divider-center mt-4" />
+        <AnimatedSection className="text-center mb-14">
+          <span className="text-[10px] tracking-[0.28em] uppercase text-[#C4956A]">
+            Témoignages
+          </span>
         </AnimatedSection>
 
         {/* Main Testimonial Slider */}

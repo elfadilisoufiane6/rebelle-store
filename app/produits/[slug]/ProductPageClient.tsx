@@ -329,18 +329,8 @@ export default function ProductPageClient({ product }: { product: Product }) {
         {/* Materials */}
         <section className="max-w-7xl mx-auto px-6 lg:px-8 mt-24 lg:mt-32">
           <AnimatedSection className="text-center mb-12">
-            <p className="text-[10px] tracking-[0.18em] uppercase text-[#C4956A] mb-3">
-              Qualité irréfutable
-            </p>
-            <h2
-              className="font-cormorant text-charcoal"
-              style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
-            >
-              Vérifiable à la réception.
-            </h2>
-            <p className="text-[12px] text-charcoal/50 mt-3 max-w-md mx-auto">
-              Photographié en lumière naturelle. Ce que tu vois est exactement
-              ce que tu reçois.
+            <p className="text-[10px] tracking-[0.28em] uppercase text-[#C4956A]">
+              Matières
             </p>
           </AnimatedSection>
 

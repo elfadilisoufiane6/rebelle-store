@@ -8,6 +8,7 @@ export type Offer = {
   perPiece: number;
   saving: number;
   badge?: string;
+  freeDelivery?: boolean;
 };
 
 export const OFFERS: Record<OfferKey, Offer> = {
@@ -15,33 +16,35 @@ export const OFFERS: Record<OfferKey, Offer> = {
     key: "1piece",
     qty: 1,
     label: "1 sac",
-    price: 469,
-    perPiece: 469,
+    price: 699,
+    perPiece: 699,
     saving: 0,
   },
   "2pieces": {
     key: "2pieces",
     qty: 2,
     label: "2 sacs",
-    price: 699,
-    perPiece: 349.5,
-    saving: 239,
+    price: 1199,
+    perPiece: 599.5,
+    saving: 199,
     badge: "Meilleur choix",
   },
   "3pieces": {
     key: "3pieces",
     qty: 3,
     label: "3 sacs",
-    price: 899,
-    perPiece: 299.67,
-    saving: 508,
-    badge: "Maximum d'économie",
+    price: 1599,
+    perPiece: 533,
+    saving: 498,
+    badge: "Livraison offerte",
+    freeDelivery: true,
   },
 };
 
 export const DEFAULT_OFFER: OfferKey = "2pieces";
 
-export const UPSELL_DISCOUNTED_PRICE = 469;
+// Post-checkout upsell — one additional sac at house tariff
+export const UPSELL_DISCOUNTED_PRICE = 599;
 export const UPSELL_REFERENCE_PRICE = 699;
 
 export type Product = {

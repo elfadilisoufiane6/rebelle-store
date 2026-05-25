@@ -19,8 +19,8 @@ export const NAV_LINKS = [
 ];
 
 export const ANNOUNCEMENT_MESSAGES = [
-  "Livraison gratuite · Paiement à la livraison",
-  "2 sacs = 699 DH · Tu économises 239 DH",
+  "Livraison offerte dès 3 sacs · Paiement à la livraison",
+  "2 sacs = 1199 DH · Tu économises 199 DH",
   "Retour 7 jours · 500+ Marocaines nous font confiance",
 ];
 
@@ -71,7 +71,7 @@ export const FAQ_ITEMS = [
   {
     question: "Puis-je commander plusieurs sacs ?",
     answer:
-      "Bien sûr — et c'est même plus avantageux. 2 sacs = 699 DH (au lieu de 938 DH), 3 sacs = 899 DH (au lieu de 1407 DH). Parfait pour t'offrir un sac et en offrir un à ta sœur, ta mère ou ta meilleure amie.",
+      "Bien sûr — et c'est même plus avantageux. 2 sacs = 1199 DH (au lieu de 1398 DH), 3 sacs = 1599 DH + livraison offerte (au lieu de 2097 DH). Parfait pour t'offrir un sac et en offrir un à ta sœur, ta mère ou ta meilleure amie.",
   },
 ];
 
@@ -100,7 +100,7 @@ export const TESTIMONIALS = [
     name: "Kenza B.",
     city: "Marrakech",
     rating: 5,
-    text: "J'ai commandé 2 sacs (un pour moi, un pour ma sœur) à 699 DH. C'est largement moins cher qu'un seul sac de marque et la qualité est top. On est très satisfaites toutes les deux.",
+    text: "J'ai commandé 2 sacs (un pour moi, un pour ma sœur) à 1199 DH. C'est largement moins cher qu'un seul sac de marque et la qualité est top. On est très satisfaites toutes les deux.",
     product: "Le Catchy PM",
     avatar: "KB",
     verified: true,

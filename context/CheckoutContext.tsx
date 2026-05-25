@@ -7,7 +7,7 @@ import {
   useCallback,
   ReactNode,
 } from "react";
-import { Product } from "@/lib/products";
+import { Product, UPSELL_DISCOUNTED_PRICE } from "@/lib/products";
 
 export type OrderItem = {
   slug: string;
@@ -89,14 +89,14 @@ export function CheckoutProvider({ children }: { children: ReactNode }) {
       name: upsellProduct.shortName,
       offer: "1 sac (offre spéciale)",
       qty: 1,
-      price: 469,
+      price: UPSELL_DISCOUNTED_PRICE,
       image: upsellProduct.images[0],
     };
     const updated: CompletedOrder = {
       ...activeOrder,
       upsellAccepted: true,
       upsellItem,
-      total: activeOrder.subtotal + 469,
+      total: activeOrder.subtotal + UPSELL_DISCOUNTED_PRICE,
     };
     setActiveOrderState(updated);
     if (typeof window !== "undefined") {

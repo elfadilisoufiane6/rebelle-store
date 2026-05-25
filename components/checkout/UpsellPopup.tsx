@@ -196,7 +196,7 @@ export default function UpsellPopup() {
                         Ajouté à ta commande
                       </>
                     ) : (
-                      <>Oui, je l&apos;ajoute · 469 DH</>
+                      <>Oui, je l&apos;ajoute · {UPSELL_DISCOUNTED_PRICE} DH</>
                     )}
                   </motion.button>
                   <button

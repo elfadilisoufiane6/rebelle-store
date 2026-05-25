@@ -366,7 +366,7 @@ function EmptyCart({
                     {p.shortName}
                   </p>
                   <p className="text-[10px] tracking-wider uppercase text-charcoal/40 mt-0.5">
-                    Dès 469 DH
+                    Dès 699 DH
                   </p>
                 </div>
                 <ArrowRight
@@ -411,7 +411,7 @@ function CrossellCard({
           {product.shortName}
         </p>
         <p className="text-[10px] tracking-wider uppercase text-charcoal/40 mt-0.5">
-          469 DH
+          699 DH
         </p>
       </Link>
       <button

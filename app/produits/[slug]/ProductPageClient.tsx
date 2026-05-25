@@ -74,7 +74,7 @@ export default function ProductPageClient({ product }: { product: Product }) {
       rating: 5,
       verified: true,
       date: "Il y a 2 semaines",
-      text: `J'ai pris 2 sacs à 699 DH, un pour moi et un pour ma sœur. On est très satisfaites toutes les deux.`,
+      text: `J'ai pris 2 sacs à 1199 DH, un pour moi et un pour ma sœur. On est très satisfaites toutes les deux.`,
       offer: "2 sacs",
     },
     {
@@ -203,9 +203,17 @@ export default function ProductPageClient({ product }: { product: Product }) {
 
                 {/* Offer selector */}
                 <div>
-                  <p className="text-[10px] tracking-[0.18em] uppercase text-charcoal/50 mb-3">
-                    Choisis ton offre
-                  </p>
+                  <div className="mb-5">
+                    <p className="text-[10px] tracking-[0.28em] uppercase text-[#C4956A]">
+                      L&apos;offre
+                    </p>
+                    <h3 className="font-cormorant font-light text-charcoal text-xl sm:text-2xl mt-1.5 leading-tight">
+                      Compose ton ensemble.
+                    </h3>
+                    <p className="font-montserrat text-[12px] text-charcoal/55 mt-1.5">
+                      Plus tu prends, plus tu économises · livraison offerte dès 3 pièces.
+                    </p>
+                  </div>
                   <div className="flex flex-col gap-2.5">
                     {(["1piece", "2pieces", "3pieces"] as OfferKey[]).map(
                       (key) => {
@@ -249,7 +257,13 @@ export default function ProductPageClient({ product }: { product: Product }) {
                                 )}
                               </div>
                               {offer.badge && (
-                                <span className="hidden sm:inline-flex bg-[#C4956A] text-white text-[9px] tracking-wider uppercase px-2 py-1 rounded-full font-medium">
+                                <span
+                                  className={`hidden sm:inline-flex text-white text-[9px] tracking-wider uppercase px-2.5 py-1 rounded-full font-medium ${
+                                    offer.freeDelivery
+                                      ? "bg-[#810B38]"
+                                      : "bg-[#C4956A]"
+                                  }`}
+                                >
                                   {offer.badge}
                                 </span>
                               )}

@@ -44,7 +44,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Link href={`/produits/${product.slug}`}>
-        <div className="relative overflow-hidden rounded-2xl bg-[#F9F5F1] aspect-[3/4]">
+        <div className="relative overflow-hidden rounded-2xl bg-[#F9F5F1] aspect-[4/5]">
           {/* Badge */}
           {product.badge && (
             <motion.div
@@ -179,10 +179,10 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
           </Link>
           <div className="text-right flex-shrink-0">
             <p className="font-montserrat font-bold text-[#810B38] text-sm">
-              Dès 469 DH
+              Dès 699 DH
             </p>
             <p className="text-[10px] tracking-wider uppercase text-charcoal/40 mt-0.5">
-              2 sacs · 699 DH
+              2 sacs · 1199 DH
             </p>
           </div>
         </div>

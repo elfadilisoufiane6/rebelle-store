@@ -158,7 +158,7 @@ export default function CollectionPage() {
                           {product.shortName}
                         </p>
                         <p className="text-[10px] tracking-[0.14em] uppercase text-[#C4956A] mt-0.5">
-                          Dès 469 DH
+                          Dès 699 DH
                         </p>
                       </div>
                       <ArrowRight

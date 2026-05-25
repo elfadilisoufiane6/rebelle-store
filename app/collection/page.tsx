@@ -87,7 +87,7 @@ export default function CollectionPage() {
 
         {/* Grid */}
         <section className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5 lg:gap-6">
             {products.map((p, i) => (
               <ProductCard key={p.slug} product={p} index={i} />
             ))}

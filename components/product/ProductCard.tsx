@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Eye, ShoppingBag, Check, Star } from "lucide-react";
+import { Eye, ShoppingBag, Check } from "lucide-react";
 import { Product } from "@/lib/products";
 import { useCart } from "@/context/CartContext";
 
@@ -44,18 +44,14 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Link href={`/produits/${product.slug}`}>
-        <div className="relative overflow-hidden rounded-2xl bg-[#F9F5F1] aspect-[4/5]">
-          {/* Badge */}
+        <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-[#F9F5F1] aspect-[4/5]">
+          {/* Badge — refined pill, mono-color, smaller */}
           {product.badge && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.08 + 0.3 }}
-              className={`absolute top-4 left-4 z-20 text-white text-[10px] tracking-[0.14em] uppercase px-3 py-1.5 rounded-full font-medium ${
-                product.isBestseller
-                  ? "bg-[#810B38] shadow-[0_4px_16px_rgba(129,11,56,0.35)]"
-                  : "bg-[#1A1A1A]"
-              }`}
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.08 + 0.2 }}
+              className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 z-20 bg-white/95 backdrop-blur-sm text-charcoal text-[8px] sm:text-[9px] tracking-[0.18em] uppercase px-2 py-1 rounded-full font-medium"
             >
               {product.badge}
             </motion.div>
@@ -165,46 +161,16 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         </div>
       </Link>
 
-      {/* Info */}
-      <div className="mt-4 flex flex-col gap-1.5 px-1">
-        <div className="flex items-start justify-between gap-2">
-          <Link href={`/produits/${product.slug}`} className="min-w-0">
-            <motion.h3
-              className="font-cormorant font-medium text-charcoal text-xl leading-tight"
-              animate={{ color: isHovered ? "#810B38" : "#1A1A1A" }}
-              transition={{ duration: 0.3 }}
-            >
-              {product.shortName}
-            </motion.h3>
-          </Link>
-          <div className="text-right flex-shrink-0">
-            <p className="font-montserrat font-bold text-[#810B38] text-sm">
-              Dès 699 DH
-            </p>
-            <p className="text-[10px] tracking-wider uppercase text-charcoal/40 mt-0.5">
-              2 sacs · 1199 DH
-            </p>
-          </div>
-        </div>
-
-        <p className="font-montserrat text-[12px] text-charcoal/55 italic leading-relaxed">
-          {product.tagline}
+      {/* Info — luxury minimal: name + price only */}
+      <div className="mt-3 sm:mt-4 flex flex-col gap-0.5 px-0.5">
+        <Link href={`/produits/${product.slug}`}>
+          <h3 className="font-cormorant text-charcoal text-[15px] sm:text-base lg:text-lg leading-tight truncate">
+            {product.shortName}
+          </h3>
+        </Link>
+        <p className="font-montserrat text-[11px] sm:text-[12px] text-charcoal/55 tabular-nums tracking-wide">
+          Dès 699 DH
         </p>
-
-        <div className="flex items-center gap-2 mt-1">
-          <div className="flex items-center gap-0.5">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                size={10}
-                className="fill-[#C4956A] text-[#C4956A]"
-              />
-            ))}
-          </div>
-          <span className="text-[10px] tracking-wider uppercase text-charcoal/40">
-            {product.rating} · {product.reviewCount} avis
-          </span>
-        </div>
       </div>
     </motion.article>
   );

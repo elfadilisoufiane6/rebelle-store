@@ -23,7 +23,7 @@ const lookbookMoments = [
     span: "aspect-[4/3]",
   },
   {
-    src: "/assets/images/gallery/5.png",
+    src: "/assets/images/gallery/5.jpeg",
     moment: "La soirée",
     slug: "lv-catchy-pm",
     span: "aspect-[4/3]",

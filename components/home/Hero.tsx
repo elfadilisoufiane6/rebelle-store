@@ -27,16 +27,16 @@ export default function Hero() {
       {/* Bottom-anchored content — editorial title + single CTA */}
       <div className="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-10 pb-16 sm:pb-20 lg:pb-24">
         <div className="flex flex-col items-start gap-5 sm:gap-6 max-w-md">
-          {/* Eyebrow — locator (maison + city, same line) */}
+          {/* Eyebrow — season label in maison red */}
           <motion.div
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="flex items-center gap-3"
           >
-            <span className="w-6 h-px bg-[#C4956A]" />
-            <span className="text-[10px] tracking-[0.28em] uppercase text-[#C4956A]">
-              Maison Rebelle · Casablanca
+            <span className="w-6 h-px bg-[#810B38]" />
+            <span className="text-[10px] tracking-[0.28em] uppercase text-[#810B38] font-semibold">
+              Maison · Édition 2026
             </span>
           </motion.div>
 

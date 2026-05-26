@@ -40,17 +40,25 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          {/* Title — short brand statement, deliberately compact */}
+          {/* Title — maison tagline elevated to hero mark */}
           <motion.h1
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            className="font-cormorant font-light text-white leading-[1.05] tracking-tight"
-            style={{ fontSize: "clamp(1.5rem, 3.4vw, 2.5rem)" }}
+            className="font-cormorant text-white leading-[0.95]"
           >
-            Une certaine idée de
-            <br />
-            <em className="not-italic text-[#C4956A]">l&apos;élégance.</em>
+            <span
+              className="block font-medium uppercase tracking-[0.06em]"
+              style={{ fontSize: "clamp(2.25rem, 5.5vw, 4rem)" }}
+            >
+              Elegance
+            </span>
+            <span
+              className="block italic text-[#C4956A] tracking-wide mt-1 sm:mt-2"
+              style={{ fontSize: "clamp(1.1rem, 2.2vw, 1.75rem)" }}
+            >
+              with attitude.
+            </span>
           </motion.h1>
 
           {/* Maison signature — quiet flourish */}

@@ -342,7 +342,7 @@ export default function AProposPage() {
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-px bg-[#810B38]" />
                   <span className="text-[10px] tracking-[0.28em] uppercase text-[#810B38] font-semibold">
-                    La Maison · Estd. 2022
+                    Rebelle Maison · Depuis 2022
                   </span>
                 </div>
               </AnimatedSection>

@@ -84,9 +84,9 @@ export const products: Product[] = [
     badge: "Bestseller",
     isBestseller: true,
     images: [
-      "/assets/images/products/coach-tabby-brown/1.png",
-      "/assets/images/products/coach-tabby-brown/2.png",
-      "/assets/images/products/coach-tabby-brown/3.png",
+      "/assets/images/products/coach-tabby-brown/1.jpg",
+      "/assets/images/products/coach-tabby-brown/2.jpg",
+      "/assets/images/products/coach-tabby-brown/3.jpg",
     ],
     materials: [
       "Cuir vachette grain naturel · Couleur cognac chaud",
@@ -117,9 +117,9 @@ export const products: Product[] = [
     badge: "Le plus demandé",
     isBestseller: true,
     images: [
-      "/assets/images/products/gucci-marmont-noir/1.png",
-      "/assets/images/products/gucci-marmont-noir/2.png",
-      "/assets/images/products/gucci-marmont-noir/3.png",
+      "/assets/images/products/gucci-marmont-noir/1.jpg",
+      "/assets/images/products/gucci-marmont-noir/2.jpg",
+      "/assets/images/products/gucci-marmont-noir/3.jpg",
     ],
     materials: [
       "Cuir matelassé noir profond · Structure semi-rigide",
@@ -150,9 +150,9 @@ export const products: Product[] = [
     badge: "Nouveau",
     isNew: true,
     images: [
-      "/assets/images/products/lv-carryall/1.png",
-      "/assets/images/products/lv-carryall/2.png",
-      "/assets/images/products/lv-carryall/3.png",
+      "/assets/images/products/lv-carryall/1.jpg",
+      "/assets/images/products/lv-carryall/2.jpg",
+      "/assets/images/products/lv-carryall/3.jpg",
     ],
     materials: [
       "Toile monogramme enduite · Résistante et iconique",
@@ -182,9 +182,9 @@ export const products: Product[] = [
     category: "Sac à chaîne",
     badge: "Coup de cœur",
     images: [
-      "/assets/images/products/lv-catchy-pm/1.png",
-      "/assets/images/products/lv-catchy-pm/2.png",
-      "/assets/images/products/lv-catchy-pm/3.png",
+      "/assets/images/products/lv-catchy-pm/1.jpg",
+      "/assets/images/products/lv-catchy-pm/2.jpg",
+      "/assets/images/products/lv-catchy-pm/3.jpg",
     ],
     materials: [
       "Toile monogramme et cuir naturel",
@@ -214,9 +214,9 @@ export const products: Product[] = [
     category: "Édition limitée",
     badge: "Édition Limitée",
     images: [
-      "/assets/images/products/lv-alma-bb-epi/1.png",
-      "/assets/images/products/lv-alma-bb-epi/2.png",
-      "/assets/images/products/lv-alma-bb-epi/3.png",
+      "/assets/images/products/lv-alma-bb-epi/1.jpg",
+      "/assets/images/products/lv-alma-bb-epi/2.jpg",
+      "/assets/images/products/lv-alma-bb-epi/3.jpg",
     ],
     materials: [
       "Cuir Epi texturé · Résistant et imperméable naturellement",
@@ -247,9 +247,9 @@ export const products: Product[] = [
     badge: "Nouveau",
     isNew: true,
     images: [
-      "/assets/images/products/gucci-ophidia-mini/1.png",
-      "/assets/images/products/gucci-ophidia-mini/2.png",
-      "/assets/images/products/gucci-ophidia-mini/3.png",
+      "/assets/images/products/gucci-ophidia-mini/1.jpg",
+      "/assets/images/products/gucci-ophidia-mini/2.jpg",
+      "/assets/images/products/gucci-ophidia-mini/3.jpg",
     ],
     materials: [
       "Toile GG Supreme enduite beige et ébène",

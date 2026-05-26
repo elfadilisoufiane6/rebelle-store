@@ -48,17 +48,22 @@ const values = [
   },
 ];
 
-// Maison portraits — used by the editorial "La Maison" spread
-const secondaryPortraits = [
+// Maison founding principles — used by the "La Maison" editorial spread
+const maisonPrinciples = [
   {
-    name: "Imane K.",
-    role: "Direction du Style",
-    image: "/assets/images/about/team/2.jpeg",
+    num: "01",
+    title: "Cuir vérifiable",
+    body: "Tu touches, tu juges, tu paies. Aucune avance.",
   },
   {
-    name: "Sara M.",
-    role: "Direction Qualité",
-    image: "/assets/images/about/team/3.jfif",
+    num: "02",
+    title: "Tarif maison",
+    body: "Le juste prix. Pas l'inflation du luxe.",
+  },
+  {
+    num: "03",
+    title: "Livraison à toi",
+    body: "Partout au Maroc, en main propre.",
   },
 ];
 
@@ -331,96 +336,74 @@ export default function AProposPage() {
               </div>
             </AnimatedSection>
 
-            {/* RIGHT — Manifesto */}
-            <div className="lg:col-span-6 flex flex-col gap-7">
+            {/* RIGHT — Editorial manifesto */}
+            <div className="lg:col-span-6 flex flex-col gap-8 lg:gap-10">
               <AnimatedSection delay={0.1}>
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-px bg-[#C4956A]" />
-                  <span className="text-[10px] tracking-[0.22em] uppercase text-[#C4956A]">
-                    La Maison
+                  <div className="w-10 h-px bg-[#810B38]" />
+                  <span className="text-[10px] tracking-[0.28em] uppercase text-[#810B38] font-semibold">
+                    La Maison · Estd. 2022
                   </span>
                 </div>
               </AnimatedSection>
 
-              <AnimatedSection delay={0.15}>
+              <AnimatedSection delay={0.16}>
                 <h2
-                  className="font-cormorant font-light text-charcoal leading-[1.04]"
-                  style={{ fontSize: "clamp(2rem, 4.4vw, 3.5rem)" }}
+                  className="font-cormorant font-light text-charcoal leading-[1.02] tracking-tight"
+                  style={{ fontSize: "clamp(2rem, 4.6vw, 3.5rem)" }}
                 >
-                  Une maison
+                  Pour les femmes
+                  <br />
+                  qui n&apos;attendent
                   <br />
                   <em className="not-italic font-semibold text-[#810B38]">
-                    pensée par des femmes,
+                    la permission de personne.
                   </em>
-                  <br />
-                  pour des femmes.
                 </h2>
               </AnimatedSection>
 
-              <AnimatedSection delay={0.22}>
+              <AnimatedSection delay={0.24}>
+                <p className="font-montserrat text-charcoal/70 text-[15px] leading-[1.85] max-w-lg">
+                  Fondée à Casablanca par une équipe de femmes qui ont
+                  refusé le choix imposé entre le luxe inaccessible et
+                  l&apos;ordinaire. Six pièces. Un seul standard.
+                </p>
+              </AnimatedSection>
+
+              {/* Numbered principles — editorial manifesto */}
+              <AnimatedSection delay={0.32}>
+                <div className="flex flex-col">
+                  {maisonPrinciples.map((p, i) => (
+                    <div
+                      key={p.num}
+                      className={`flex items-start gap-5 lg:gap-7 py-5 ${
+                        i === 0 ? "border-t border-[#F0E9E1]" : ""
+                      } border-b border-[#F0E9E1]`}
+                    >
+                      <span className="font-cormorant font-light text-[#810B38] text-2xl lg:text-3xl tabular-nums leading-none flex-shrink-0 pt-1">
+                        {p.num}
+                      </span>
+                      <div className="flex-1">
+                        <p className="font-cormorant text-charcoal text-lg lg:text-xl leading-tight">
+                          {p.title}
+                        </p>
+                        <p className="font-montserrat text-charcoal/55 text-[13px] leading-relaxed mt-1.5">
+                          {p.body}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </AnimatedSection>
+
+              <AnimatedSection delay={0.42}>
                 <p
-                  className="font-cormorant italic text-[#C4956A] tracking-wide select-none"
-                  style={{ fontSize: "clamp(1.05rem, 1.5vw, 1.4rem)" }}
+                  className="font-cormorant italic text-[#C4956A] tracking-wide select-none mt-2"
+                  style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)" }}
                   aria-label="Be bold. Be elegant. Be Rebelle."
                 >
                   {BRAND_SIGNATURE}
                 </p>
-              </AnimatedSection>
-
-              <AnimatedSection delay={0.28}>
-                <div className="h-px w-16 bg-[#C4956A]/60" />
-              </AnimatedSection>
-
-              <AnimatedSection delay={0.32}>
-                <p className="font-montserrat text-charcoal/70 text-[15px] leading-[1.85] max-w-xl">
-                  Tout est parti d&apos;une frustration. Une femme marocaine
-                  moderne, talentueuse, ambitieuse — confrontée au même
-                  dilemme silencieux&nbsp;: assumer le luxe à plein tarif, ou se
-                  contenter de l&apos;ordinaire. Nous avons choisi une troisième
-                  voie.
-                </p>
-              </AnimatedSection>
-
-              <AnimatedSection delay={0.38}>
-                <p className="font-montserrat text-charcoal/70 text-[15px] leading-[1.85] max-w-xl">
-                  {BRAND_NAME_STYLIZED} n&apos;est pas une marque de sacs. C&apos;est
-                  l&apos;instant où tu poses ton sac sur la table et où la pièce
-                  change d&apos;air. C&apos;est la femme qui se tient un demi-pas
-                  plus droite parce qu&apos;elle sait ce qu&apos;elle porte.
-                </p>
-              </AnimatedSection>
-
-              {/* Secondary portraits — editorial polaroid pair */}
-              <AnimatedSection delay={0.5}>
-                <div className="mt-4">
-                  <p className="text-[10px] tracking-[0.22em] uppercase text-charcoal/45 mb-4">
-                    Les mains derrière la maison
-                  </p>
-                  <div className="grid grid-cols-2 gap-4 max-w-md">
-                    {secondaryPortraits.map((member) => (
-                      <div
-                        key={member.name}
-                        className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-[#FAF6F2]"
-                      >
-                        <Image
-                          src={member.image}
-                          alt={`${member.name} — ${member.role}`}
-                          fill
-                          sizes="(max-width: 1024px) 50vw, 240px"
-                          className="object-cover"
-                        />
-                        <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/85 via-black/30 to-transparent">
-                          <p className="font-cormorant text-white text-base leading-tight">
-                            {member.name}
-                          </p>
-                          <p className="text-[9px] tracking-[0.18em] uppercase text-[#C4956A]/90 mt-0.5">
-                            {member.role}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
               </AnimatedSection>
             </div>
           </div>

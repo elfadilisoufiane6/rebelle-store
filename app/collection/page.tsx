@@ -14,19 +14,16 @@ const lookbookMoments = [
     src: "/assets/images/gallery/2.png",
     moment: "Le quotidien",
     slug: "coach-tabby-brown",
-    span: "md:row-span-2 aspect-[3/4] md:aspect-auto md:h-full",
   },
   {
-    src: "/assets/images/gallery/4.jpeg",
+    src: "/assets/images/gallery/4.png",
     moment: "L'après-midi",
     slug: "lv-carryall",
-    span: "aspect-[4/3]",
   },
   {
     src: "/assets/images/gallery/3.png",
     moment: "La soirée",
     slug: "lv-catchy-pm",
-    span: "aspect-[4/3]",
   },
 ];
 
@@ -113,7 +110,7 @@ export default function CollectionPage() {
           </AnimatedSection>
 
           <AnimatedSection delay={0.1}>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 lg:gap-8">
               {lookbookMoments.map((item) => {
                 const product = products.find((p) => p.slug === item.slug);
                 if (!product) return null;
@@ -121,54 +118,28 @@ export default function CollectionPage() {
                   <Link
                     key={item.src}
                     href={`/produits/${product.slug}`}
-                    className={`relative overflow-hidden rounded-3xl group block ${item.span}`}
+                    className="group block"
                     aria-label={`${item.moment} — ${product.shortName}`}
                   >
-                    {/* Lifestyle image background */}
-                    <Image
-                      src={item.src}
-                      alt={`Lookbook Rebelle — ${product.shortName}`}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent" />
-
-                    {/* Top-left moment label */}
-                    <div className="absolute top-5 left-5 flex items-center gap-2">
-                      <div className="w-6 h-px bg-[#C4956A]" />
-                      <span className="text-[10px] tracking-[0.22em] uppercase text-white/90">
-                        {item.moment}
-                      </span>
+                    {/* Image — full bleed, no crops, contained in a clean cream frame */}
+                    <div className="relative aspect-[4/5] bg-[#FAF6F2] rounded-2xl overflow-hidden">
+                      <Image
+                        src={item.src}
+                        alt={`Lookbook Rebelle — ${product.shortName}`}
+                        fill
+                        sizes="(max-width: 640px) 100vw, 33vw"
+                        className="object-contain transition-transform duration-700 group-hover:scale-[1.02]"
+                      />
                     </div>
 
-                    {/* Hover-revealed maison signature */}
-                    <div className="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <span
-                        className="font-cormorant italic text-[#C4956A] text-sm drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)] select-none"
-                        aria-label="Be bold. Be elegant. Be Rebelle."
-                      >
-                        {BRAND_SIGNATURE}
-                      </span>
-                    </div>
-
-                    {/* Product card overlay — always visible */}
-                    <div className="absolute inset-x-4 bottom-4 flex items-center gap-3 bg-white/95 backdrop-blur-xl rounded-2xl p-3 border border-white/40 shadow-[0_12px_40px_rgba(0,0,0,0.25)]">
-                      <div className="relative w-12 h-14 flex-shrink-0 rounded-lg overflow-hidden bg-[#FAF6F2]">
-                        <Image
-                          src={product.images[0]}
-                          alt={product.shortName}
-                          fill
-                          sizes="48px"
-                          className="object-cover"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-cormorant text-charcoal text-sm leading-tight truncate">
-                          {product.shortName}
+                    {/* Caption row — under the image, editorial */}
+                    <div className="mt-3 sm:mt-4 flex items-center justify-between gap-3 px-0.5">
+                      <div className="min-w-0">
+                        <p className="text-[9px] tracking-[0.22em] uppercase text-[#C4956A] mb-0.5">
+                          {item.moment}
                         </p>
-                        <p className="text-[10px] tracking-[0.14em] uppercase text-[#C4956A] mt-0.5">
-                          Dès 699 DH
+                        <p className="font-cormorant text-charcoal text-[15px] sm:text-base truncate">
+                          {product.shortName}
                         </p>
                       </div>
                       <ArrowRight

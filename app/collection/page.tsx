@@ -76,11 +76,21 @@ export default function CollectionPage() {
           </AnimatedSection>
         </section>
 
-        {/* Section label only — let the photography do the talking */}
+        {/* Editorial header — brand mark + season title */}
         <section className="max-w-4xl mx-auto px-6 lg:px-8 text-center mb-12 lg:mb-16">
           <AnimatedSection>
-            <h1 className="text-[10px] tracking-[0.28em] uppercase text-[#C4956A]">
-              Collection
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-6 h-px bg-[#810B38]" />
+              <span className="text-[10px] tracking-[0.28em] uppercase text-[#810B38] font-semibold">
+                Maison Rebelle
+              </span>
+              <span className="w-6 h-px bg-[#810B38]" />
+            </div>
+            <h1
+              className="font-cormorant font-light text-charcoal leading-[1.05] tracking-tight"
+              style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)" }}
+            >
+              Édition <em className="not-italic text-[#810B38]">2026</em>.
             </h1>
           </AnimatedSection>
         </section>

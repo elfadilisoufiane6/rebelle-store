@@ -46,10 +46,19 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
             className="font-cormorant font-medium uppercase text-white leading-[0.95] tracking-[0.06em]"
-            style={{ fontSize: "clamp(2.25rem, 5.5vw, 4rem)" }}
           >
-            <span className="block">Elegance</span>
-            <span className="block">with attitude.</span>
+            <span
+              className="block"
+              style={{ fontSize: "clamp(2.25rem, 5.5vw, 4rem)" }}
+            >
+              Elegance
+            </span>
+            <span
+              className="block"
+              style={{ fontSize: "clamp(1.75rem, 4.2vw, 3rem)" }}
+            >
+              with attitude.
+            </span>
           </motion.h1>
 
           {/* Maison signature — quiet flourish */}

@@ -87,6 +87,7 @@ export const products: Product[] = [
       "/assets/images/products/coach-tabby-brown/1.jpg",
       "/assets/images/products/coach-tabby-brown/2.jpg",
       "/assets/images/products/coach-tabby-brown/3.jpg",
+      "/assets/images/products/coach-tabby-brown/4.jpg",
     ],
     materials: [
       "Cuir vachette grain naturel · Couleur cognac chaud",

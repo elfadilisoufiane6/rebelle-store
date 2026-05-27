@@ -352,7 +352,7 @@ export default function ThankYouPage() {
           <div className="relative overflow-hidden rounded-3xl bg-[#1A1A1A]">
             <div className="absolute inset-0">
               <Image
-                src="/assets/images/gallery/3.png"
+                src="/assets/images/gallery/la-soiree.jpg"
                 alt="L'expérience de déballage Rebelle"
                 fill
                 className="object-cover opacity-55"

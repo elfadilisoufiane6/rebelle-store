@@ -15,32 +15,32 @@ type Moment = { src: string; moment: string; slug: string };
 
 const moments: Moment[] = [
   {
-    src: "/assets/images/gallery/2.png",
+    src: "/assets/images/gallery/le-quotidien.jpg",
     moment: "Le quotidien",
     slug: "coach-tabby-brown",
   },
   {
-    src: "/assets/images/gallery/4.png",
+    src: "/assets/images/gallery/l-apres-midi.jpg",
     moment: "L'après-midi",
     slug: "lv-carryall",
   },
   {
-    src: "/assets/images/gallery/3.png",
+    src: "/assets/images/gallery/la-soiree.jpg",
     moment: "La soirée",
     slug: "lv-catchy-pm",
   },
   {
-    src: "",
+    src: "/assets/images/gallery/le-rendez-vous.jpg",
     moment: "Le rendez-vous",
     slug: "gucci-marmont-noir",
   },
   {
-    src: "",
+    src: "/assets/images/gallery/le-voyage.jpg",
     moment: "Le voyage",
     slug: "lv-alma-bb-epi",
   },
   {
-    src: "",
+    src: "/assets/images/gallery/le-brunch.jpg",
     moment: "Le brunch",
     slug: "gucci-ophidia-mini",
   },
@@ -53,8 +53,8 @@ export default function Lookbook() {
       className="bg-white py-20 lg:py-28 overflow-hidden"
       aria-label="Lookbook Rebelle"
     >
-      {/* Editorial header */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-end justify-between gap-6 mb-10 lg:mb-12">
+      {/* Editorial header — centered */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center mb-10 lg:mb-12">
         <AnimatedSection>
           <p className="text-[10px] tracking-[0.28em] uppercase text-[#810B38] font-semibold mb-3">
             Lookbook
@@ -66,16 +66,6 @@ export default function Lookbook() {
             Édition{" "}
             <em className="not-italic font-semibold text-[#810B38]">2026</em>.
           </h2>
-        </AnimatedSection>
-
-        <AnimatedSection delay={0.1} className="hidden sm:block flex-shrink-0">
-          <Link
-            href="/collection"
-            className="inline-flex items-center gap-2 text-charcoal/70 hover:text-[#810B38] text-[10px] tracking-[0.22em] uppercase font-medium transition-colors duration-300"
-          >
-            Voir tout
-            <ArrowRight size={12} />
-          </Link>
         </AnimatedSection>
       </div>
 
@@ -138,8 +128,8 @@ export default function Lookbook() {
         </div>
       </AnimatedSection>
 
-      {/* Mobile-only "Voir tout" — header link is hidden on mobile */}
-      <div className="sm:hidden max-w-7xl mx-auto px-6 mt-8 text-center">
+      {/* "Voir tout" — under the slider, centered (header is centered too) */}
+      <div className="max-w-7xl mx-auto px-6 mt-10 lg:mt-12 text-center">
         <Link
           href="/collection"
           className="inline-flex items-center gap-2 text-charcoal/70 hover:text-[#810B38] text-[10px] tracking-[0.22em] uppercase font-medium transition-colors duration-300"

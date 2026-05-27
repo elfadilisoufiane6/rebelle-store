@@ -364,9 +364,9 @@ export default function AProposPage() {
 
               <AnimatedSection delay={0.24}>
                 <p className="font-montserrat text-charcoal/70 text-[15px] leading-[1.85] max-w-lg">
-                  Fondée à Casablanca par une équipe de femmes qui ont
+                  Fondée à Rabat par une équipe de femmes qui ont
                   refusé le choix imposé entre le luxe inaccessible et
-                  l&apos;ordinaire. Six pièces. Un seul standard.
+                  l&apos;ordinaire. Un seul standard, aucune excuse.
                 </p>
               </AnimatedSection>
 

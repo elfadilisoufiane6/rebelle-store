@@ -2,7 +2,6 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/home/Hero";
 import TrustBar from "@/components/home/TrustBar";
-import Lookbook from "@/components/home/Lookbook";
 import BestSellers from "@/components/home/BestSellers";
 import BrandStory from "@/components/home/BrandStory";
 import LuxuryBanner from "@/components/home/LuxuryBanner";
@@ -15,7 +14,6 @@ export default function HomePage() {
       <Navbar />
       <Hero />
       <TrustBar />
-      <Lookbook />
       <BestSellers />
       <BrandStory />
       <LuxuryBanner />

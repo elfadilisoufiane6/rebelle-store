@@ -4,6 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ProductCard from "@/components/product/ProductCard";
 import AnimatedSection from "@/components/ui/AnimatedSection";
+import Lookbook from "@/components/home/Lookbook";
 import { products } from "@/lib/products";
 import { BRAND_SIGNATURE } from "@/lib/constants";
 
@@ -110,6 +111,9 @@ export default function CollectionPage() {
           </AnimatedSection>
         </section>
       </div>
+
+      {/* Lookbook slider — at the bottom of the collection page */}
+      <Lookbook />
 
       <Footer />
     </main>

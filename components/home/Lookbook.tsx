@@ -9,7 +9,11 @@ import { products } from "@/lib/products";
 // Lookbook moments — shared across the storefront. Each tile pairs a
 // lifestyle image with the product it's selling so the slider doubles
 // as a story-driven entry point into the collection.
-const moments = [
+// Tiles with src: "" render a cream placeholder ("Bientôt") so new
+// moments can be wired in before the photography ships.
+type Moment = { src: string; moment: string; slug: string };
+
+const moments: Moment[] = [
   {
     src: "/assets/images/gallery/2.png",
     moment: "Le quotidien",
@@ -24,6 +28,21 @@ const moments = [
     src: "/assets/images/gallery/3.png",
     moment: "La soirée",
     slug: "lv-catchy-pm",
+  },
+  {
+    src: "",
+    moment: "Le rendez-vous",
+    slug: "gucci-marmont-noir",
+  },
+  {
+    src: "",
+    moment: "Le voyage",
+    slug: "lv-alma-bb-epi",
+  },
+  {
+    src: "",
+    moment: "Le brunch",
+    slug: "gucci-ophidia-mini",
   },
 ];
 
@@ -69,19 +88,34 @@ export default function Lookbook() {
               if (!product) return null;
               return (
                 <Link
-                  key={item.src}
+                  key={`${item.slug}-${item.moment}`}
                   href={`/produits/${product.slug}`}
                   className="group block flex-shrink-0 snap-start w-[78vw] sm:w-[44vw] lg:w-[32vw] xl:w-[400px]"
                   aria-label={`${item.moment} — ${product.shortName}`}
                 >
                   <div className="relative aspect-[4/5] bg-[#FAF6F2] rounded-2xl overflow-hidden">
-                    <Image
-                      src={item.src}
-                      alt={`Lookbook Rebelle — ${product.shortName}`}
-                      fill
-                      sizes="(max-width: 640px) 78vw, (max-width: 1024px) 44vw, 400px"
-                      className="object-contain transition-transform duration-700 group-hover:scale-[1.02]"
-                    />
+                    {item.src ? (
+                      <Image
+                        src={item.src}
+                        alt={`Lookbook Rebelle — ${product.shortName}`}
+                        fill
+                        sizes="(max-width: 640px) 78vw, (max-width: 1024px) 44vw, 400px"
+                        className="object-contain transition-transform duration-700 group-hover:scale-[1.02]"
+                      />
+                    ) : (
+                      // Placeholder — cream frame with a subtle "Bientôt"
+                      // mark. Replace src in the moments array when the
+                      // editorial shoot is delivered.
+                      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-[#C4956A]/70">
+                        <span className="w-8 h-px bg-[#C4956A]/60" />
+                        <span className="font-cormorant italic text-2xl">
+                          Bientôt
+                        </span>
+                        <span className="text-[9px] tracking-[0.28em] uppercase text-charcoal/30">
+                          Édition 2026
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <div className="mt-3 sm:mt-4 flex items-center justify-between gap-3 px-0.5">
                     <div className="min-w-0">

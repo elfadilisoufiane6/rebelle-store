@@ -17,17 +17,17 @@ const moments: Moment[] = [
   {
     src: "/assets/images/gallery/le-quotidien.jpg",
     moment: "Le quotidien",
-    slug: "coach-tabby-brown",
+    slug: "lv-carryall",
   },
   {
     src: "/assets/images/gallery/l-apres-midi.jpg",
     moment: "L'après-midi",
-    slug: "lv-carryall",
+    slug: "lv-catchy-pm",
   },
   {
     src: "/assets/images/gallery/la-soiree.jpg",
     moment: "La soirée",
-    slug: "lv-catchy-pm",
+    slug: "coach-tabby-brown",
   },
   {
     src: "/assets/images/gallery/le-rendez-vous.jpg",

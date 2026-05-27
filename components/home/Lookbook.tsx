@@ -15,19 +15,19 @@ type Moment = { src: string; moment: string; slug: string };
 
 const moments: Moment[] = [
   {
-    src: "/assets/images/products/lv-carryall/1.jpg",
+    src: "/assets/images/gallery/le-quotidien.jpg",
     moment: "Le quotidien",
+    slug: "coach-tabby-brown",
+  },
+  {
+    src: "/assets/images/gallery/l-apres-midi.jpg",
+    moment: "L'après-midi",
     slug: "lv-carryall",
   },
   {
-    src: "/assets/images/products/lv-catchy-pm/2.jpg",
-    moment: "L'après-midi",
-    slug: "lv-catchy-pm",
-  },
-  {
-    src: "/assets/images/products/coach-tabby-brown/3.jpg",
+    src: "/assets/images/gallery/la-soiree.jpg",
     moment: "La soirée",
-    slug: "coach-tabby-brown",
+    slug: "lv-catchy-pm",
   },
   {
     src: "/assets/images/gallery/le-rendez-vous.jpg",

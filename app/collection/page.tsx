@@ -1,31 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ProductCard from "@/components/product/ProductCard";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { products } from "@/lib/products";
 import { BRAND_SIGNATURE } from "@/lib/constants";
-
-const lookbookMoments = [
-  {
-    src: "/assets/images/gallery/2.png",
-    moment: "Le quotidien",
-    slug: "coach-tabby-brown",
-  },
-  {
-    src: "/assets/images/gallery/4.png",
-    moment: "L'après-midi",
-    slug: "lv-carryall",
-  },
-  {
-    src: "/assets/images/gallery/3.png",
-    moment: "La soirée",
-    slug: "lv-catchy-pm",
-  },
-];
 
 export const metadata: Metadata = {
   title: "Collection — Rebelle",
@@ -99,59 +79,6 @@ export default function CollectionPage() {
               <ProductCard key={p.slug} product={p} index={i} />
             ))}
           </div>
-        </section>
-
-        {/* Shop the look — lifestyle imagery paired with featured products */}
-        <section className="max-w-7xl mx-auto px-6 lg:px-8 mt-24 lg:mt-32">
-          <AnimatedSection className="text-center mb-10 lg:mb-12">
-            <p className="text-[10px] tracking-[0.28em] uppercase text-[#C4956A]">
-              Lookbook
-            </p>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.1}>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 lg:gap-8">
-              {lookbookMoments.map((item) => {
-                const product = products.find((p) => p.slug === item.slug);
-                if (!product) return null;
-                return (
-                  <Link
-                    key={item.src}
-                    href={`/produits/${product.slug}`}
-                    className="group block"
-                    aria-label={`${item.moment} — ${product.shortName}`}
-                  >
-                    {/* Image — full bleed, no crops, contained in a clean cream frame */}
-                    <div className="relative aspect-[4/5] bg-[#FAF6F2] rounded-2xl overflow-hidden">
-                      <Image
-                        src={item.src}
-                        alt={`Lookbook Rebelle — ${product.shortName}`}
-                        fill
-                        sizes="(max-width: 640px) 100vw, 33vw"
-                        className="object-contain transition-transform duration-700 group-hover:scale-[1.02]"
-                      />
-                    </div>
-
-                    {/* Caption row — under the image, editorial */}
-                    <div className="mt-3 sm:mt-4 flex items-center justify-between gap-3 px-0.5">
-                      <div className="min-w-0">
-                        <p className="text-[9px] tracking-[0.22em] uppercase text-[#C4956A] mb-0.5">
-                          {item.moment}
-                        </p>
-                        <p className="font-cormorant text-charcoal text-[15px] sm:text-base truncate">
-                          {product.shortName}
-                        </p>
-                      </div>
-                      <ArrowRight
-                        size={14}
-                        className="text-[#810B38] flex-shrink-0 group-hover:translate-x-1 transition-transform duration-300"
-                      />
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </AnimatedSection>
         </section>
 
         {/* Bottom trust band — editorial stats */}

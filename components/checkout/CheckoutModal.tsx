@@ -15,7 +15,7 @@ import {
   getProduct,
   pickUpsellProduct,
 } from "@/lib/products";
-import { validatePhone, normalizePhone, generateOrderId } from "@/lib/order";
+import { validatePhone, normalizePhone } from "@/lib/order";
 import { BRAND_SIGNATURE } from "@/lib/constants";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -97,7 +97,6 @@ export default function CheckoutModal() {
     setSubmitError(null);
 
     try {
-      const orderId = generateOrderId();
       const phoneNormalized = normalizePhone(phone);
 
       const orderItems: OrderItem[] = orderLines.map(({ product, offer }) => ({
@@ -111,8 +110,48 @@ export default function CheckoutModal() {
 
       const subtotal = orderItems.reduce((s, it) => s + it.price, 0);
 
+      // Backend payload — items carry sku + English name so ops/sheet
+      // get the warehouse-friendly info without an extra lookup.
+      const apiUrl =
+        process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+
+      const apiItems = orderLines.map(({ product, offer }) => ({
+        product_id: product.slug,
+        product_name: product.shortName,
+        product_name_en: product.englishName,
+        sku: product.sku,
+        quantity: offer.qty,
+        offer: offer.key,
+        unit_price: offer.price,
+      }));
+
+      const res = await fetch(`${apiUrl}/api/orders`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.trim(),
+          phone,
+          phone_normalized: phoneNormalized,
+          items: apiItems,
+          total: subtotal,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+
+      const json = (await res.json()) as {
+        success?: boolean;
+        order_id?: string;
+        error?: string;
+      };
+      if (!json.success || !json.order_id) {
+        throw new Error(json.error || "Order rejected by server");
+      }
+
       const order: CompletedOrder = {
-        orderId,
+        orderId: json.order_id,
         name: name.trim(),
         phone: phoneNormalized,
         items: orderItems,
@@ -122,9 +161,6 @@ export default function CheckoutModal() {
         total: subtotal,
         createdAt: new Date().toISOString(),
       };
-
-      // Simulate async submission delay
-      await new Promise((r) => setTimeout(r, 700));
 
       setActiveOrder(order);
 
@@ -143,7 +179,11 @@ export default function CheckoutModal() {
         window.location.href = "/merci";
       }
     } catch (err) {
-      setSubmitError("Une erreur est survenue, réessaie.");
+      // eslint-disable-next-line no-console
+      console.error("Order submission failed:", err);
+      setSubmitError(
+        "Une erreur est survenue. Réessaie ou contacte-nous sur WhatsApp."
+      );
     } finally {
       setSubmitting(false);
     }

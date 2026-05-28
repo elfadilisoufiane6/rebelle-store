@@ -51,6 +51,10 @@ export type Product = {
   slug: string;
   name: string;
   shortName: string;
+  // English name shipped to ops sheet — keep brand-style descriptive
+  englishName: string;
+  // Stable SKU for warehouse + sheet ops
+  sku: string;
   tagline: string;
   description: string;
   emotionalHook: string;
@@ -73,6 +77,8 @@ export const products: Product[] = [
     slug: "coach-tabby-brown",
     name: "Le Tabby — Édition Cognac",
     shortName: "Le Tabby Cognac",
+    englishName: "Tabby Cognac Shoulder Bag",
+    sku: "RBL-TABBY-COG",
     tagline: "Le sac qui sait s'adapter à ta vie",
     description:
       "La polyvalence à son paroxysme. Le Tabby en cuir cognac se porte le matin au bureau, le soir au restaurant. Sa boucle dorée iconique est reconnue dans le monde entier.",
@@ -107,6 +113,8 @@ export const products: Product[] = [
     slug: "gucci-marmont-noir",
     name: "Le Marmont — Édition Noir",
     shortName: "Le Marmont Noir",
+    englishName: "Marmont Black Matelasse",
+    sku: "RBL-MARMONT-NOI",
     tagline: "L'icône noire qui ne passe jamais inaperçue",
     description:
       "Le matelassé noir aux finitions dorées — une combinaison qui a traversé les décennies sans vieillir. Le double G au dos dit tout, sans que tu dises un mot.",
@@ -140,6 +148,8 @@ export const products: Product[] = [
     slug: "lv-carryall",
     name: "Le CarryAll — Édition Monogramme",
     shortName: "Le CarryAll Monogram",
+    englishName: "CarryAll Monogram Tote",
+    sku: "RBL-CARRYALL-MON",
     tagline: "Le grand sac de toutes tes conquêtes",
     description:
       "Pour la femme en mouvement. Le CarryAll en toile monogramme porte tout ce dont tu as besoin, sans jamais perdre son allure. Du bureau aux voyages.",
@@ -173,6 +183,8 @@ export const products: Product[] = [
     slug: "lv-catchy-pm",
     name: "Le Catchy — Édition PM",
     shortName: "Le Catchy PM",
+    englishName: "Catchy PM Chain Bag",
+    sku: "RBL-CATCHY-PM",
     tagline: "Le sac à chaîne qui fait tourner les têtes",
     description:
       "Compact, élégant, et cette chaîne dorée qui fait tout. Le Catchy PM se porte en bandoulière pour un effet décontracté, ou à la main pour une touche sophistiquée.",
@@ -205,6 +217,8 @@ export const products: Product[] = [
     slug: "lv-alma-bb-epi",
     name: "L'Alma BB — Édition Epi",
     shortName: "L'Alma BB Epi",
+    englishName: "Alma BB Epi Structured Bag",
+    sku: "RBL-ALMA-EPI",
     tagline: "La structure iconique en cuir texturé",
     description:
       "La silhouette Alma — reconnaissable entre mille — dans le cuir Epi texturé le plus résistant. Un sac qui vieillit mieux que les tendances.",
@@ -237,6 +251,8 @@ export const products: Product[] = [
     slug: "gucci-ophidia-mini",
     name: "L'Ophidia Mini — Édition Supreme",
     shortName: "L'Ophidia Mini",
+    englishName: "Ophidia Mini Supreme",
+    sku: "RBL-OPHIDIA-SUP",
     tagline: "Petit format, grand impact",
     description:
       "Le motif GG Supreme dans son plus beau format. L'Ophidia Mini concentre tout le savoir-faire dans un sac compact qui dit tout sur ton goût.",

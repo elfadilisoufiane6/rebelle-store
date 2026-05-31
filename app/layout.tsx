@@ -6,6 +6,8 @@ import { CheckoutProvider } from "@/context/CheckoutContext";
 import CartDrawer from "@/components/layout/CartDrawer";
 import CheckoutModal from "@/components/checkout/CheckoutModal";
 import UpsellPopup from "@/components/checkout/UpsellPopup";
+import ClickTracker from "@/components/tracking/ClickTracker";
+import { Suspense } from "react";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -179,6 +181,10 @@ export default function RootLayout({
             <CartDrawer />
             <CheckoutModal />
             <UpsellPopup />
+            {/* Anonymous pageview tracker — useSearchParams needs Suspense */}
+            <Suspense fallback={null}>
+              <ClickTracker />
+            </Suspense>
           </CheckoutProvider>
         </CartProvider>
       </body>

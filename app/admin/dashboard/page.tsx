@@ -10,12 +10,17 @@ export default function AdminDashboardPage() {
   const [range, setRange] = useState<DateRange>(presets.last30);
   const [validMaOnly, setValidMaOnly] = useState(true);
   const [data, setData] = useState<MetricsResponse | null>(null);
-  const [loading, setLoading] = useState(true);
+  // Only show full skeleton on the very first load. Subsequent fetches
+  // (date range / toggle change) keep the previous data on screen while
+  // a subtle indicator shows the refresh, so the dashboard never goes
+  // blank.
+  const [initialLoading, setInitialLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-    setLoading(true);
+    if (data) setRefreshing(true);
     setError(null);
     adminApi
       .metrics({ from: range.from, to: range.to, validMaOnly })
@@ -26,12 +31,18 @@ export default function AdminDashboardPage() {
         if (!cancelled) setError(err.message);
       })
       .finally(() => {
-        if (!cancelled) setLoading(false);
+        if (!cancelled) {
+          setInitialLoading(false);
+          setRefreshing(false);
+        }
       });
     return () => {
       cancelled = true;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [range.from, range.to, validMaOnly]);
+
+  const loading = initialLoading;
 
   const t = data?.totals;
   const conv = useMemo(
@@ -41,13 +52,20 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <header className="flex flex-col gap-1 mb-2">
-        <p className="text-[10px] tracking-[0.28em] uppercase text-[#810B38] font-semibold">
-          Tableau de bord
-        </p>
-        <h1 className="font-cormorant font-light text-charcoal text-3xl lg:text-4xl">
-          Performance commerce.
-        </h1>
+      <header className="flex items-end justify-between gap-4 mb-2">
+        <div>
+          <p className="text-[10px] tracking-[0.28em] uppercase text-[#810B38] font-semibold">
+            Tableau de bord
+          </p>
+          <h1 className="font-cormorant font-light text-charcoal text-3xl lg:text-4xl">
+            Performance commerce.
+          </h1>
+        </div>
+        {refreshing && (
+          <span className="text-[10px] tracking-[0.22em] uppercase text-charcoal/40 font-medium animate-pulse">
+            actualisation…
+          </span>
+        )}
       </header>
 
       {/* Controls */}

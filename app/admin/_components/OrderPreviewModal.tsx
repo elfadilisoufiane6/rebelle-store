@@ -53,20 +53,20 @@ export default function OrderPreviewModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-6"
+      className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex flex-col sm:items-center justify-end sm:justify-center overscroll-contain"
       onClick={onClose}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl shadow-2xl"
+        className="bg-white w-full sm:max-w-2xl h-[92vh] sm:h-auto sm:max-h-[90vh] rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden"
       >
-        {/* Header — burgundy */}
-        <div className="bg-[#810B38] text-white px-6 sm:px-8 py-6 rounded-t-3xl flex items-start justify-between">
-          <div>
+        {/* Sticky header — burgundy */}
+        <div className="bg-[#810B38] text-white px-5 sm:px-8 py-5 sm:py-6 flex items-start justify-between flex-shrink-0">
+          <div className="min-w-0 flex-1">
             <p className="text-[10px] tracking-[0.28em] uppercase text-white/70 font-semibold">
               Aperçu commande
             </p>
-            <p className="font-cormorant font-light text-2xl mt-1">
+            <p className="font-cormorant font-light text-xl sm:text-2xl mt-1 truncate">
               {order.order_id}
             </p>
             <p className="text-[11px] text-white/65 mt-1 tabular-nums">
@@ -76,13 +76,13 @@ export default function OrderPreviewModal({
           <button
             onClick={onClose}
             aria-label="Fermer"
-            className="text-white/70 hover:text-white"
+            className="text-white/70 hover:text-white flex-shrink-0 ml-3 -mr-1 p-1"
           >
-            <X size={22} />
+            <X size={24} />
           </button>
         </div>
 
-        <div className="px-6 sm:px-8 py-6 flex flex-col gap-6">
+        <div className="px-5 sm:px-8 py-5 sm:py-6 flex flex-col gap-6 overflow-y-auto flex-1">
           {/* Status row */}
           <div className="flex items-center gap-3">
             <span className="text-[9px] tracking-[0.22em] uppercase text-charcoal/55 font-semibold">

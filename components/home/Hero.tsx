@@ -44,30 +44,24 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          {/* Title — 'Elegance' sets the block width, 'with attitude.'
-              stretches via text-align justify so its left AND right
-              edges meet Elegance's, producing a clean rectangular
-              block on every viewport. */}
+          {/* Title — Elegance dominant + 'with attitude.' normal text
+              underneath, both left-aligned to the same x-axis. No
+              letter-stretching. */}
           <motion.h1
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            className="font-cormorant font-medium uppercase text-white leading-[0.95] tracking-[0.04em] inline-flex flex-col items-stretch w-fit"
+            className="font-cormorant font-medium uppercase text-white leading-[0.95] tracking-[0.04em] flex flex-col items-start"
           >
             <span
-              className="block whitespace-nowrap"
+              className="block"
               style={{ fontSize: "clamp(3rem, 9vw, 6.5rem)" }}
             >
               Elegance
             </span>
             <span
-              className="block whitespace-nowrap"
-              style={{
-                fontSize: "clamp(1rem, 2.8vw, 1.9rem)",
-                textAlign: "justify",
-                textAlignLast: "justify",
-                width: "100%",
-              }}
+              className="block"
+              style={{ fontSize: "clamp(1.4rem, 4vw, 2.75rem)" }}
             >
               with attitude.
             </span>

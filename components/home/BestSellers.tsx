@@ -8,10 +8,10 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 
 export default function BestSellers() {
   return (
-    <section id="collection" className="py-24 lg:py-32 bg-white">
+    <section id="collection" className="pt-10 lg:pt-14 pb-20 lg:pb-28 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <AnimatedSection className="text-center mb-14 lg:mb-20">
-          <p className="text-[10px] tracking-[0.28em] uppercase text-[#C4956A]">
+        <AnimatedSection className="text-center mb-8 lg:mb-12">
+          <p className="text-[10px] tracking-[0.28em] uppercase text-[#810B38] font-semibold">
             Collection
           </p>
         </AnimatedSection>

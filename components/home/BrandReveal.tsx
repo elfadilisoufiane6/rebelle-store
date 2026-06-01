@@ -14,13 +14,13 @@ export default function BrandReveal() {
   return (
     <section
       aria-label="Le nom Rebelle"
-      className="bg-white py-24 lg:py-36 overflow-hidden relative"
+      className="bg-white py-12 lg:py-16 overflow-hidden relative"
     >
       {/* Editorial hairlines */}
       <div className="absolute top-0 left-0 w-1/4 h-px bg-gradient-to-r from-[#810B38]/40 to-transparent pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-1/4 h-px bg-gradient-to-l from-[#810B38]/40 to-transparent pointer-events-none" />
 
-      <div className="max-w-4xl mx-auto px-6 lg:px-10 text-center flex flex-col items-center gap-6 lg:gap-8">
+      <div className="max-w-4xl mx-auto px-6 lg:px-10 text-center flex flex-col items-center gap-4 lg:gap-5">
         {/* Eyebrow */}
         <motion.span
           initial={{ opacity: 0, y: 10 }}

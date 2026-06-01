@@ -238,10 +238,10 @@ export default function CheckoutModal() {
 
                 {/* Maison signature */}
                 <p
-                  className="font-cormorant italic text-[#C4956A]/80 text-base lg:text-lg -mt-2 tracking-wide select-none"
+                  className="font-cormorant font-light uppercase text-white/75 text-[10px] lg:text-[11px] tracking-[0.32em] -mt-2 select-none"
                   aria-label="Be bold. Be elegant. Be Rebelle."
                 >
-                  {BRAND_SIGNATURE}
+                  Be bold · Be elegant · Be Rebelle
                 </p>
 
                 <div className="flex flex-col gap-3 pt-2">

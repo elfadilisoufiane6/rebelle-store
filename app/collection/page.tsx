@@ -42,11 +42,11 @@ export default function CollectionPage() {
                     </span>
                   </div>
                   <p
-                    className="font-cormorant italic text-[#C4956A] tracking-wide select-none"
-                    style={{ fontSize: "clamp(1.1rem, 1.6vw, 1.5rem)" }}
+                    className="font-cormorant font-light uppercase text-white/85 tracking-[0.32em] select-none"
+                    style={{ fontSize: "clamp(0.7rem, 1vw, 0.9rem)" }}
                     aria-label="Be bold. Be elegant. Be Rebelle."
                   >
-                    {BRAND_SIGNATURE}
+                    Be bold · Be elegant · Be Rebelle
                   </p>
                 </div>
               </div>

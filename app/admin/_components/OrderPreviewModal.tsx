@@ -53,15 +53,19 @@ export default function OrderPreviewModal({
 
   return (
     <div
-      className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex flex-col sm:items-center justify-end sm:justify-center overscroll-contain"
+      className="fixed inset-0 z-[100] flex sm:items-center sm:justify-center sm:p-6 overscroll-contain"
       onClick={onClose}
     >
+      {/* Backdrop — sibling so clicks on it close the modal without
+          relying on event bubbling around the card. */}
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white w-full sm:max-w-2xl h-[92vh] sm:h-auto sm:max-h-[90vh] rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden"
+        className="relative bg-white w-full h-full sm:h-auto sm:max-w-2xl sm:max-h-[90vh] sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden"
       >
         {/* Sticky header — burgundy */}
-        <div className="bg-[#810B38] text-white px-5 sm:px-8 py-5 sm:py-6 flex items-start justify-between flex-shrink-0">
+        <div className="bg-[#810B38] text-white px-5 sm:px-8 py-5 sm:py-6 flex items-start justify-between flex-shrink-0 sm:rounded-t-3xl">
           <div className="min-w-0 flex-1">
             <p className="text-[10px] tracking-[0.28em] uppercase text-white/70 font-semibold">
               Aperçu commande

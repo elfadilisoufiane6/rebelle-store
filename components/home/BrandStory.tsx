@@ -33,10 +33,10 @@ export default function BrandStory() {
               className="absolute -bottom-6 -right-4 lg:-right-8 glass rounded-2xl p-6 max-w-[220px] shadow-luxury"
             >
               <p
-                className="font-cormorant italic text-[#810B38] text-base lg:text-lg leading-snug mb-2 tracking-wide select-none"
+                className="font-cormorant font-light uppercase text-[#810B38] text-[10px] sm:text-[11px] tracking-[0.28em] mb-2 select-none"
                 aria-label="Be bold. Be elegant. Be Rebelle."
               >
-                {BRAND_SIGNATURE}
+                Be bold · Be elegant · Be Rebelle
               </p>
               <p className="text-luxury-xs text-charcoal/55">{BRAND_NAME_STYLIZED}</p>
             </motion.div>

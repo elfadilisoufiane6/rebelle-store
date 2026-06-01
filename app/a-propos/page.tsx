@@ -398,11 +398,11 @@ export default function AProposPage() {
 
               <AnimatedSection delay={0.42}>
                 <p
-                  className="font-cormorant italic text-[#C4956A] tracking-wide select-none mt-2"
-                  style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)" }}
+                  className="font-cormorant font-light uppercase text-[#810B38] tracking-[0.32em] select-none mt-2"
+                  style={{ fontSize: "clamp(0.65rem, 0.9vw, 0.8rem)" }}
                   aria-label="Be bold. Be elegant. Be Rebelle."
                 >
-                  {BRAND_SIGNATURE}
+                  Be bold · Be elegant · Be Rebelle
                 </p>
               </AnimatedSection>
             </div>

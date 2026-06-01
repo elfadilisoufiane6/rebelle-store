@@ -243,14 +243,13 @@ export default function Footer() {
         </div>
 
         {/* Maison signature — micro-branding */}
-        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col items-center gap-2">
+        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col items-center gap-3">
           <p
-            className="font-cormorant italic text-[#C4956A] text-lg lg:text-xl tracking-wide text-center select-none"
+            className="font-cormorant font-light uppercase text-white/65 tracking-[0.32em] text-[11px] sm:text-[12px] text-center select-none"
             aria-label="Be bold. Be elegant. Be Rebelle."
           >
-            {BRAND_SIGNATURE}
+            Be bold · Be elegant · Be Rebelle
           </p>
-          <div className="w-12 h-px bg-[#C4956A]/30" />
         </div>
 
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">

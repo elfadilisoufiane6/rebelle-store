@@ -116,11 +116,11 @@ export default function ThankYouPage() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.65, duration: 0.8 }}
-            className="font-cormorant italic text-[#C4956A] mt-4 tracking-wide select-none"
-            style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)" }}
+            className="font-cormorant font-light uppercase text-[#810B38] mt-4 tracking-[0.32em] select-none"
+            style={{ fontSize: "clamp(0.7rem, 1vw, 0.85rem)" }}
             aria-label="Be bold. Be elegant. Be Rebelle."
           >
-            {BRAND_SIGNATURE}
+            Be bold · Be elegant · Be Rebelle
           </motion.p>
 
           {hydrated && order ? (
@@ -385,10 +385,10 @@ export default function ThankYouPage() {
                   manuscrite. Tu ouvres une pièce — pas un colis.
                 </p>
                 <p
-                  className="font-cormorant italic text-[#C4956A] text-lg lg:text-xl tracking-wide select-none pt-1"
+                  className="font-cormorant font-light uppercase text-white/80 tracking-[0.32em] text-[11px] lg:text-[13px] select-none pt-1"
                   aria-label="Be bold. Be elegant. Be Rebelle."
                 >
-                  {BRAND_SIGNATURE}
+                  Be bold · Be elegant · Be Rebelle
                 </p>
               </div>
               <div className="lg:col-span-5 grid grid-cols-3 gap-3">

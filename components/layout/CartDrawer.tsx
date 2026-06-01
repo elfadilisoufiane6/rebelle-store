@@ -280,10 +280,10 @@ export default function CartDrawer() {
                   Paiement à la livraison · 100% sécurisé
                 </p>
                 <p
-                  className="font-cormorant italic text-[#C4956A]/85 text-sm text-center tracking-wide select-none"
+                  className="font-cormorant font-light uppercase text-charcoal/60 text-[10px] text-center tracking-[0.32em] select-none"
                   aria-label="Be bold. Be elegant. Be Rebelle."
                 >
-                  {BRAND_SIGNATURE}
+                  Be bold · Be elegant · Be Rebelle
                 </p>
               </div>
             )}

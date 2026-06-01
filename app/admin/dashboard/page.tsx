@@ -77,12 +77,6 @@ export default function AdminDashboardPage() {
           value={t?.clicks ?? 0}
           loading={loading}
           format="int"
-        />
-        <MetricCard
-          label="Clics valides (MA)"
-          value={t?.valid_ma_clicks ?? 0}
-          loading={loading}
-          format="int"
           highlight
         />
         <MetricCard

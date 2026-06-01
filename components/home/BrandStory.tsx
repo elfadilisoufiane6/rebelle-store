@@ -82,9 +82,10 @@ export default function BrandStory() {
 
             <AnimatedSection delay={0.3}>
               <p className="font-montserrat text-[15px] text-charcoal/65 leading-[1.85] max-w-md">
-                Maison {BRAND_NAME_STYLIZED} — sacs en cuir véritable,
-                pensés à Casablanca pour la femme moderne. Tu paies à la
-                livraison.
+                Maison {BRAND_NAME_STYLIZED} réinterprète les silhouettes
+                iconiques du luxe en cuir véritable, à prix juste.
+                L&apos;allure d&apos;une grande maison, sans la facture.
+                Tu paies à la livraison.
               </p>
             </AnimatedSection>
 

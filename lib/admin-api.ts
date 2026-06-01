@@ -151,4 +151,9 @@ export const adminApi = {
       `/api/admin/orders/${id}/status`,
       { method: "PATCH", body: JSON.stringify({ status }) }
     ),
+
+  deleteOrder: (id: string) =>
+    request<{ success: true; deleted: string }>(`/api/admin/orders/${id}`, {
+      method: "DELETE",
+    }),
 };

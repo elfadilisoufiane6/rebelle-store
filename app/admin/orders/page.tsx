@@ -74,6 +74,29 @@ export default function AdminOrdersPage() {
     }
   }
 
+  async function handleDelete(orderId: string) {
+    const ok = window.confirm(
+      `Supprimer définitivement la commande ${orderId} ?\n\nCette action est irréversible.`
+    );
+    if (!ok) return;
+    try {
+      await adminApi.deleteOrder(orderId);
+      setData((d) =>
+        d
+          ? {
+              ...d,
+              total: Math.max(0, d.total - 1),
+              items: d.items.filter((o) => o.order_id !== orderId),
+            }
+          : d
+      );
+      if (selected?.order_id === orderId) setSelected(null);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Delete failed";
+      alert(message);
+    }
+  }
+
   return (
     <div className="flex flex-col gap-6">
       <header className="flex flex-col gap-1 mb-2">
@@ -160,6 +183,7 @@ export default function AdminOrdersPage() {
           order={selected}
           onClose={() => setSelected(null)}
           onStatusChange={handleStatusChange}
+          onDelete={handleDelete}
         />
       )}
     </div>

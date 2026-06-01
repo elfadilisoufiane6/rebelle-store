@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
-import { X, Phone, MapPin, ShoppingBag, Tag, Receipt } from "lucide-react";
+import { X, Phone, MapPin, ShoppingBag, Tag, Receipt, Trash2 } from "lucide-react";
 import { AdminOrder } from "@/lib/admin-api";
 
 type Props = {
   order: AdminOrder;
   onClose: () => void;
   onStatusChange: (orderId: string, next: AdminOrder["status"]) => void;
+  onDelete?: (orderId: string) => void;
 };
 
 const STATUS_LABELS: Record<AdminOrder["status"], string> = {
@@ -32,6 +33,7 @@ export default function OrderPreviewModal({
   order,
   onClose,
   onStatusChange,
+  onDelete,
 }: Props) {
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -252,6 +254,19 @@ export default function OrderPreviewModal({
               </p>
             </div>
           </section>
+
+          {/* Danger zone — only renders when parent passes a delete handler */}
+          {onDelete && (
+            <section className="border-t border-[#F0E9E1] pt-4">
+              <button
+                onClick={() => onDelete(order.order_id)}
+                className="inline-flex items-center gap-2 text-red-700 hover:text-white hover:bg-red-700 border border-red-200 hover:border-red-700 text-[11px] tracking-wider uppercase font-medium px-4 py-2 rounded-full transition-colors"
+              >
+                <Trash2 size={12} />
+                Supprimer la commande
+              </button>
+            </section>
+          )}
         </div>
       </div>
     </div>

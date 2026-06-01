@@ -44,15 +44,16 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          {/* Title — single line, big even on mobile, scales up on desktop */}
+          {/* Title — two stacked lines, big even on mobile */}
           <motion.h1
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            className="font-cormorant font-medium uppercase text-white leading-[0.95] tracking-[0.02em] whitespace-nowrap"
-            style={{ fontSize: "clamp(1.4rem, 5.2vw, 4.5rem)" }}
+            className="font-cormorant font-medium uppercase text-white leading-[0.95] tracking-[0.04em]"
+            style={{ fontSize: "clamp(2.5rem, 7.5vw, 5.5rem)" }}
           >
-            Elegance with attitude.
+            <span className="block">Elegance</span>
+            <span className="block">with attitude.</span>
           </motion.h1>
 
           {/* CTA + livraison line */}

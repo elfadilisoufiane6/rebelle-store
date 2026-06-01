@@ -36,14 +36,14 @@ export default function CollectionPage() {
               <div className="absolute inset-0 flex items-center">
                 <div className="px-8 lg:px-14 max-w-xl">
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-px bg-[#C4956A]" />
-                    <span className="text-[10px] tracking-[0.22em] uppercase text-[#C4956A]">
-                      Lookbook 2026
+                    <div className="w-10 h-px bg-white" />
+                    <span className="font-cormorant font-light uppercase text-white tracking-[0.32em] text-[10px] sm:text-[11px]">
+                      Lookbook · 2026
                     </span>
                   </div>
                   <p
-                    className="font-cormorant font-light uppercase text-white/85 tracking-[0.32em] select-none"
-                    style={{ fontSize: "clamp(0.7rem, 1vw, 0.9rem)" }}
+                    className="font-cormorant font-light uppercase text-white/70 tracking-[0.32em] select-none"
+                    style={{ fontSize: "clamp(0.65rem, 0.9vw, 0.8rem)" }}
                     aria-label="Be bold. Be elegant. Be Rebelle."
                   >
                     Be bold · Be elegant · Be Rebelle

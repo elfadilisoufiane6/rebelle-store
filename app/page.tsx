@@ -15,9 +15,9 @@ export default function HomePage() {
       <Navbar />
       <Hero />
       <TrustBar />
+      <BrandReveal />
       <BestSellers />
       <BrandStory />
-      <BrandReveal />
       <LuxuryBanner />
       <Testimonials />
       <FAQ />

@@ -3,7 +3,14 @@
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import { LayoutDashboard, ShoppingBag, LogOut, Menu, X } from "lucide-react";
+import {
+  LayoutDashboard,
+  ShoppingBag,
+  Megaphone,
+  LogOut,
+  Menu,
+  X,
+} from "lucide-react";
 import { adminApi, AdminUser } from "@/lib/admin-api";
 
 // Wraps every page under /admin (EXCEPT /admin/login). Calls /me on
@@ -12,6 +19,7 @@ import { adminApi, AdminUser } from "@/lib/admin-api";
 const NAV = [
   { href: "/admin/dashboard", label: "Tableau de bord", icon: LayoutDashboard },
   { href: "/admin/orders", label: "Commandes", icon: ShoppingBag },
+  { href: "/admin/ads", label: "Ads Intelligence", icon: Megaphone },
 ];
 
 export default function AdminShell({ children }: { children: React.ReactNode }) {

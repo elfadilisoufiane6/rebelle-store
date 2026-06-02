@@ -15,6 +15,7 @@ const STATUS_LABELS: Record<AdminOrder["status"], string> = {
   shipped: "Expédiée",
   delivered: "Livrée",
   cancelled: "Annulée",
+  returned: "Retournée",
 };
 
 const STATUS_COLORS: Record<AdminOrder["status"], string> = {
@@ -22,7 +23,8 @@ const STATUS_COLORS: Record<AdminOrder["status"], string> = {
   confirmed: "bg-blue-100 text-blue-800 border-blue-200",
   shipped: "bg-violet-100 text-violet-800 border-violet-200",
   delivered: "bg-emerald-100 text-emerald-800 border-emerald-200",
-  cancelled: "bg-red-100 text-red-800 border-red-200",
+  cancelled: "bg-rose-100 text-rose-800 border-rose-200",
+  returned: "bg-stone-200 text-stone-800 border-stone-300",
 };
 
 function formatDateTime(iso: string) {

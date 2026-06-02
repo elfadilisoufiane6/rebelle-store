@@ -1,5 +1,5 @@
-// Thin admin API client. All requests carry the admin session cookie
-// via credentials: 'include'. Backend rejects unauthenticated calls
+// Admin API client. Every call ships the signed session cookie via
+// `credentials: 'include'`. The backend rejects unauthenticated calls
 // with 401, which our pages translate to a redirect → /admin/login.
 
 const API_URL =
@@ -34,19 +34,44 @@ async function request<T>(
   return body as T;
 }
 
+// ──────────────────────────────────────────────
+// Auth
+// ──────────────────────────────────────────────
+
 export type AdminUser = { username: string };
+
+// ──────────────────────────────────────────────
+// Metrics
+// ──────────────────────────────────────────────
+
+export type MetricsTotals = {
+  clicks: number;
+  valid_ma_clicks: number;
+  orders: number;
+  revenue: number;
+  conversion_rate: number;
+  avg_order_value: number;
+  confirmation_rate: number;
+  delivery_rate: number;
+  cancellation_rate: number;
+  pending_orders: number;
+  confirmed_orders: number;
+  shipped_orders: number;
+  delivered_orders: number;
+  cancelled_orders: number;
+  returned_orders: number;
+};
+
+// Delta is null when the previous period had a zero baseline.
+export type MetricsDeltas = Partial<Record<keyof MetricsTotals, number | null>>;
 
 export type MetricsResponse = {
   success: true;
   range: { from: string; to: string; valid_ma_only: boolean };
-  totals: {
-    clicks: number;
-    valid_ma_clicks: number;
-    orders: number;
-    revenue: number;
-    conversion_rate: number;
-    avg_order_value: number;
-  };
+  previous_range: { from: string; to: string };
+  totals: MetricsTotals;
+  previous_totals: MetricsTotals;
+  deltas: MetricsDeltas;
   events_by_type: Record<string, number>;
   orders_by_status: Record<string, number>;
   timeseries: Array<{
@@ -62,6 +87,18 @@ export type MetricsResponse = {
     orders: number;
   }>;
 };
+
+// ──────────────────────────────────────────────
+// Orders
+// ──────────────────────────────────────────────
+
+export type AdminOrderStatus =
+  | "pending"
+  | "confirmed"
+  | "shipped"
+  | "delivered"
+  | "cancelled"
+  | "returned";
 
 export type AdminOrder = {
   _id: string;
@@ -84,7 +121,7 @@ export type AdminOrder = {
   upsell_accepted?: boolean;
   upsell_product_name?: string | null;
   upsell_price?: number | null;
-  status: "pending" | "confirmed" | "shipped" | "delivered" | "cancelled";
+  status: AdminOrderStatus;
   utm_source?: string | null;
   utm_medium?: string | null;
   utm_campaign?: string | null;
@@ -102,6 +139,69 @@ export type OrdersListResponse = {
   total_pages: number;
   items: AdminOrder[];
 };
+
+// ──────────────────────────────────────────────
+// Ads (Meta + TikTok)
+// ──────────────────────────────────────────────
+
+export type AdsCampaignRow = {
+  campaign_id: string;
+  campaign_name: string;
+  spend: number;
+  revenue: number;
+  purchases: number;
+  impressions: number;
+  clicks: number;
+  reach: number;
+  ctr: number;
+  cpm: number;
+  cpc: number;
+  cpa: number | null;
+  roas: number;
+};
+
+export type AdsTotals = {
+  spend: number;
+  revenue: number;
+  purchases: number;
+  impressions: number;
+  clicks: number;
+  reach: number;
+  ctr: number;
+  cpm: number;
+  cpc: number;
+  cpa: number | null;
+  roas: number;
+};
+
+export type AdsMetricsResponse = {
+  success: boolean;
+  configured: boolean;
+  error?: string;
+  items: AdsCampaignRow[];
+  totals: AdsTotals;
+};
+
+// ──────────────────────────────────────────────
+// AI
+// ──────────────────────────────────────────────
+
+export type AICapabilitiesResponse = {
+  success: true;
+  configured: boolean;
+  suggested_prompts: string[];
+};
+
+export type AIChatResponse = {
+  success: true;
+  text: string;
+  model: string;
+  provider: string;
+};
+
+// ──────────────────────────────────────────────
+// Client
+// ──────────────────────────────────────────────
 
 export const adminApi = {
   login: (username: string, password: string) =>
@@ -125,7 +225,9 @@ export const adminApi = {
     if (params.to) qs.set("to", params.to);
     if (params.validMaOnly !== undefined)
       qs.set("validMaOnly", String(params.validMaOnly));
-    return request<MetricsResponse>(`/api/admin/metrics?${qs.toString()}`);
+    return request<MetricsResponse>(
+      `/api/admin/metrics?${qs.toString()}`
+    );
   },
 
   orders: (params: {
@@ -146,14 +248,52 @@ export const adminApi = {
   order: (id: string) =>
     request<{ success: true; order: AdminOrder }>(`/api/admin/orders/${id}`),
 
-  updateOrderStatus: (id: string, status: AdminOrder["status"]) =>
+  updateOrderStatus: (id: string, status: AdminOrderStatus) =>
     request<{ success: true; order: AdminOrder }>(
       `/api/admin/orders/${id}/status`,
       { method: "PATCH", body: JSON.stringify({ status }) }
     ),
 
   deleteOrder: (id: string) =>
-    request<{ success: true; deleted: string }>(`/api/admin/orders/${id}`, {
-      method: "DELETE",
+    request<{ success: true; deleted: string }>(
+      `/api/admin/orders/${id}`,
+      { method: "DELETE" }
+    ),
+
+  // ──────── AI ────────
+  aiCapabilities: () =>
+    request<AICapabilitiesResponse>("/api/admin/ai/capabilities"),
+
+  aiChat: (question: string, context?: unknown) =>
+    request<AIChatResponse>("/api/admin/ai/chat", {
+      method: "POST",
+      body: JSON.stringify({ question, context }),
     }),
+
+  // Streaming endpoint URL — caller uses EventSource directly.
+  aiStreamUrl: (question: string, context?: unknown) => {
+    const qs = new URLSearchParams();
+    qs.set("question", question);
+    if (context !== undefined) qs.set("context", JSON.stringify(context));
+    return `${API_URL}/api/admin/ai/chat/stream?${qs.toString()}`;
+  },
+
+  // ──────── Ads ────────
+  metaAds: (params: { from?: string; to?: string }) => {
+    const qs = new URLSearchParams();
+    if (params.from) qs.set("from", params.from);
+    if (params.to) qs.set("to", params.to);
+    return request<AdsMetricsResponse>(
+      `/api/admin/ads/meta/metrics?${qs.toString()}`
+    );
+  },
+
+  tiktokAds: (params: { from?: string; to?: string }) => {
+    const qs = new URLSearchParams();
+    if (params.from) qs.set("from", params.from);
+    if (params.to) qs.set("to", params.to);
+    return request<AdsMetricsResponse>(
+      `/api/admin/ads/tiktok/metrics?${qs.toString()}`
+    );
+  },
 };

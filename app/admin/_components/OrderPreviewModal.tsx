@@ -17,6 +17,7 @@ const STATUS_LABELS: Record<AdminOrder["status"], string> = {
   shipped: "Expédiée",
   delivered: "Livrée",
   cancelled: "Annulée",
+  returned: "Retournée",
 };
 
 function formatDateTime(iso: string) {

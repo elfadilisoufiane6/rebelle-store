@@ -137,6 +137,7 @@ export default function AdminOrdersPage() {
           <option value="shipped">Expédiées</option>
           <option value="delivered">Livrées</option>
           <option value="cancelled">Annulées</option>
+          <option value="returned">Retournées</option>
         </select>
         <input
           type="search"

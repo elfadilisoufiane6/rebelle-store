@@ -2,7 +2,9 @@
 
 import { useState, FormEvent, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Lock } from "lucide-react";
 import { adminApi } from "@/lib/admin-api";
+import { useLocale } from "../_lib/locale";
 
 export default function AdminLoginPage() {
   return (
@@ -13,6 +15,7 @@ export default function AdminLoginPage() {
 }
 
 function LoginForm() {
+  const { t, locale, setLocale } = useLocale();
   const router = useRouter();
   const search = useSearchParams();
   const next = search?.get("next") || "/admin/dashboard";
@@ -30,8 +33,7 @@ function LoginForm() {
       await adminApi.login(username, password);
       router.push(next);
     } catch (err) {
-      const message =
-        err instanceof Error ? err.message : "Login failed";
+      const message = err instanceof Error ? err.message : t("common.error");
       setError(message);
     } finally {
       setSubmitting(false);
@@ -39,29 +41,54 @@ function LoginForm() {
   }
 
   return (
-    <main className="min-h-screen bg-[#FAF6F2] flex items-center justify-center px-6 py-12">
+    <main className="min-h-screen bg-[#FAF6F2] flex items-center justify-center px-6 py-12 relative">
+      {/* Floating language toggle */}
+      <div className="absolute top-6 right-6 inline-flex bg-white border border-[#F0E9E1] rounded-full p-0.5 shadow-[0_1px_0_rgba(26,26,26,0.04)]">
+        <button
+          type="button"
+          onClick={() => setLocale("fr")}
+          className={`px-3 py-1 text-[10px] tracking-[0.22em] uppercase font-semibold rounded-full transition-colors ${
+            locale === "fr"
+              ? "bg-[#FAF6F2] text-[#810B38]"
+              : "text-charcoal/55 hover:text-charcoal"
+          }`}
+        >
+          FR
+        </button>
+        <button
+          type="button"
+          onClick={() => setLocale("en")}
+          className={`px-3 py-1 text-[10px] tracking-[0.22em] uppercase font-semibold rounded-full transition-colors ${
+            locale === "en"
+              ? "bg-[#FAF6F2] text-[#810B38]"
+              : "text-charcoal/55 hover:text-charcoal"
+          }`}
+        >
+          EN
+        </button>
+      </div>
+
       <div className="w-full max-w-md">
         <div className="text-center mb-10">
-          <div className="flex items-center justify-center gap-3 mb-3">
+          <div className="flex items-center justify-center gap-3 mb-4">
             <span className="w-6 h-px bg-[#810B38]" />
             <span className="text-[10px] tracking-[0.28em] uppercase text-[#810B38] font-semibold">
-              Maison Rebelle
+              {t("common.maison")}
             </span>
             <span className="w-6 h-px bg-[#810B38]" />
           </div>
-          <h1 className="font-cormorant font-light text-charcoal text-[2.25rem] leading-[1.05]">
-            Console{" "}
-            <em className="not-italic font-semibold text-[#810B38]">admin</em>.
+          <h1 className="font-cormorant font-light text-charcoal text-[2.4rem] leading-[1.05] tracking-tight">
+            {t("login.title")}
           </h1>
         </div>
 
         <form
           onSubmit={onSubmit}
-          className="bg-white rounded-3xl border border-[#F0E9E1] p-8 shadow-[0_30px_80px_rgba(26,26,26,0.06)] flex flex-col gap-5"
+          className="bg-white rounded-3xl border border-[#F0E9E1] p-8 shadow-[0_30px_80px_-30px_rgba(26,26,26,0.12)] flex flex-col gap-5"
         >
           <label className="flex flex-col gap-1.5">
             <span className="text-[9px] tracking-[0.22em] uppercase text-charcoal/55 font-semibold">
-              Identifiant
+              {t("login.username")}
             </span>
             <input
               type="text"
@@ -76,7 +103,7 @@ function LoginForm() {
 
           <label className="flex flex-col gap-1.5">
             <span className="text-[9px] tracking-[0.22em] uppercase text-charcoal/55 font-semibold">
-              Mot de passe
+              {t("login.password")}
             </span>
             <input
               type="password"
@@ -89,7 +116,7 @@ function LoginForm() {
           </label>
 
           {error && (
-            <p className="text-[12px] text-red-700 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+            <p className="text-[12px] text-rose-700 bg-rose-50 border border-rose-200 rounded-lg px-3 py-2">
               {error}
             </p>
           )}
@@ -97,14 +124,15 @@ function LoginForm() {
           <button
             type="submit"
             disabled={submitting}
-            className="mt-2 bg-[#810B38] text-white text-[11px] tracking-[0.22em] uppercase font-semibold py-4 rounded-full hover:bg-[#5c0828] disabled:opacity-60 transition-colors"
+            className="mt-2 inline-flex items-center justify-center gap-2 bg-[#810B38] text-white text-[11px] tracking-[0.22em] uppercase font-semibold py-4 rounded-full hover:bg-[#5c0828] disabled:opacity-60 transition-colors"
           >
-            {submitting ? "Connexion…" : "Se connecter"}
+            <Lock size={12} strokeWidth={2.2} />
+            {submitting ? t("login.submitting") : t("login.submit")}
           </button>
         </form>
 
         <p className="text-center text-[10px] tracking-[0.22em] uppercase text-charcoal/40 mt-6">
-          Accès réservé · session 7 jours
+          {t("login.footer")}
         </p>
       </div>
     </main>

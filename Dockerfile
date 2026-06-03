@@ -58,8 +58,12 @@ USER nextjs
 
 EXPOSE 3000
 
+# TCP-only healthcheck — opens a socket on the listening port without
+# routing through the Next.js handler stack. Avoids the Next 14.2.5
+# multipart parser bug ("Unexpected end of form") that fires on HEAD /
+# aborted requests and was tripping the restart loop in Easypanel.
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
-  CMD node -e "fetch('http://127.0.0.1:'+(process.env.PORT||3000)+'/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+  CMD node -e "require('net').createConnection({port:parseInt(process.env.PORT||'3000',10),host:'127.0.0.1'}).on('connect',function(){this.end();process.exit(0)}).on('error',function(){process.exit(1)})"
 
 ENTRYPOINT ["dumb-init", "--"]
 CMD ["node", "server.js"]

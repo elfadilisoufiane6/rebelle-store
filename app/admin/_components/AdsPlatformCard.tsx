@@ -3,6 +3,14 @@
 import { ReactNode } from "react";
 import { RefreshCw } from "lucide-react";
 import { AdsMetricsResponse } from "@/lib/admin-api";
+import { useLocale } from "../_lib/locale";
+import {
+  fmtCurrency,
+  fmtCurrencyParts,
+  fmtInt,
+  fmtPercent,
+  fmtRoas,
+} from "../_lib/format";
 
 type Props = {
   title: string;
@@ -13,22 +21,6 @@ type Props = {
   refreshing: boolean;
   onRefresh: () => void;
 };
-
-function fmtCurrency(n: number) {
-  return (
-    new Intl.NumberFormat("fr-MA", { maximumFractionDigits: 0 }).format(n) +
-    " DH"
-  );
-}
-function fmtInt(n: number) {
-  return new Intl.NumberFormat("fr-MA").format(Math.round(n));
-}
-function fmtRoas(n: number) {
-  return `${n.toFixed(2)}×`;
-}
-function fmtPct(n: number) {
-  return `${(n * 100).toFixed(2)} %`;
-}
 
 function Stat({
   label,
@@ -44,8 +36,39 @@ function Stat({
       <p className="text-[9px] tracking-[0.22em] uppercase text-charcoal/50 font-semibold">
         {label}
       </p>
-      <p className="font-cormorant font-light text-[#810B38] text-xl sm:text-2xl tabular-nums mt-1 leading-none">
+      <p className="font-cormorant font-light text-charcoal text-[1.5rem] sm:text-[1.7rem] tabular-nums mt-1 leading-none tracking-tight">
         {loading ? "—" : value}
+      </p>
+    </div>
+  );
+}
+
+function CurrencyStat({
+  label,
+  value,
+  loading,
+  locale,
+}: {
+  label: string;
+  value: number;
+  loading?: boolean;
+  locale: "fr" | "en";
+}) {
+  const parts = fmtCurrencyParts(value, locale);
+  return (
+    <div>
+      <p className="text-[9px] tracking-[0.22em] uppercase text-charcoal/50 font-semibold">
+        {label}
+      </p>
+      <p className="font-cormorant font-light text-charcoal text-[1.5rem] sm:text-[1.7rem] tabular-nums mt-1 leading-none tracking-tight">
+        {loading ? "—" : (
+          <>
+            {parts.value}
+            <span className="ml-1 text-[0.45em] tracking-[0.22em] uppercase text-charcoal/45 font-medium align-baseline">
+              {parts.suffix}
+            </span>
+          </>
+        )}
       </p>
     </div>
   );
@@ -60,26 +83,27 @@ export default function AdsPlatformCard({
   refreshing,
   onRefresh,
 }: Props) {
-  const t = data?.totals;
+  const { t, locale } = useLocale();
+  const totals = data?.totals;
   const items = data?.items ?? [];
   const configured = data?.configured ?? false;
 
   return (
-    <div className="bg-white border border-[#F0E9E1] rounded-2xl overflow-hidden">
-      {/* Header — platform-coloured strip */}
+    <div className="bg-white border border-[#F0E9E1] rounded-2xl overflow-hidden shadow-[0_1px_0_rgba(26,26,26,0.02)]">
+      {/* Header */}
       <div className="flex items-center justify-between gap-3 px-5 sm:px-6 py-4 border-b border-[#F0E9E1]">
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
           <span
-            className="inline-flex items-center justify-center w-8 h-8 rounded-lg text-white"
+            className="inline-flex items-center justify-center w-9 h-9 rounded-xl text-white shadow-[0_4px_12px_-4px_rgba(0,0,0,0.2)]"
             style={{ background: brandColor }}
           >
             {icon}
           </span>
           <div>
             <p className="text-[9px] tracking-[0.28em] uppercase text-[#810B38] font-semibold">
-              Ads
+              {t("ads.eyebrow")}
             </p>
-            <p className="font-cormorant text-charcoal text-base leading-none mt-0.5">
+            <p className="font-cormorant text-charcoal text-base leading-none mt-0.5 tracking-tight">
               {title}
             </p>
           </div>
@@ -87,22 +111,22 @@ export default function AdsPlatformCard({
         <button
           onClick={onRefresh}
           disabled={loading || refreshing}
-          className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.22em] uppercase text-charcoal/70 hover:text-[#810B38] disabled:opacity-50"
-          aria-label="Rafraîchir"
+          className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.22em] uppercase text-charcoal/70 hover:text-[#810B38] disabled:opacity-50 font-semibold"
+          aria-label={t("common.refresh")}
         >
           <RefreshCw
             size={12}
             className={refreshing ? "animate-spin" : undefined}
           />
-          Rafraîchir
+          {t("common.refresh")}
         </button>
       </div>
 
       <div className="p-5 sm:p-6 flex flex-col gap-5">
         {!configured && !loading && (
           <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-[12px] text-amber-800">
-            <p className="font-semibold mb-1">Plateforme non configurée</p>
-            <p>{data?.error || "Définis les variables d'environnement requises."}</p>
+            <p className="font-semibold mb-1">{t("ads.notConfigured")}</p>
+            <p>{data?.error || t("ads.notConfiguredHint")}</p>
           </div>
         )}
 
@@ -112,47 +136,52 @@ export default function AdsPlatformCard({
           </div>
         )}
 
-        {/* Totals */}
+        {/* Totals — 4-col grid, premium currency rendering */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <CurrencyStat
+            label={t("ads.stat.spend")}
+            value={totals?.spend ?? 0}
+            loading={loading}
+            locale={locale}
+          />
+          <CurrencyStat
+            label={t("ads.stat.revenue")}
+            value={totals?.revenue ?? 0}
+            loading={loading}
+            locale={locale}
+          />
           <Stat
-            label="Dépense"
-            value={fmtCurrency(t?.spend ?? 0)}
+            label={t("ads.stat.purchases")}
+            value={fmtInt(totals?.purchases ?? 0, locale)}
             loading={loading}
           />
           <Stat
-            label="Revenu"
-            value={fmtCurrency(t?.revenue ?? 0)}
+            label={t("ads.stat.roas")}
+            value={fmtRoas(totals?.roas ?? 0, locale)}
             loading={loading}
           />
-          <Stat
-            label="Achats"
-            value={fmtInt(t?.purchases ?? 0)}
-            loading={loading}
+          <CurrencyStat
+            label={t("ads.stat.cpa")}
+            value={totals?.cpa ?? 0}
+            loading={loading || totals?.cpa == null}
+            locale={locale}
           />
           <Stat
-            label="ROAS"
-            value={fmtRoas(t?.roas ?? 0)}
+            label={t("ads.stat.ctr")}
+            value={fmtPercent(totals?.ctr ?? 0, locale, 2)}
             loading={loading}
           />
-          <Stat
-            label="CPA"
-            value={
-              t?.cpa === null || t?.cpa === undefined
-                ? "—"
-                : fmtCurrency(t.cpa)
-            }
+          <CurrencyStat
+            label={t("ads.stat.cpm")}
+            value={totals?.cpm ?? 0}
             loading={loading}
+            locale={locale}
           />
-          <Stat label="CTR" value={fmtPct(t?.ctr ?? 0)} loading={loading} />
-          <Stat
-            label="CPM"
-            value={fmtCurrency(t?.cpm ?? 0)}
+          <CurrencyStat
+            label={t("ads.stat.cpc")}
+            value={totals?.cpc ?? 0}
             loading={loading}
-          />
-          <Stat
-            label="CPC"
-            value={fmtCurrency(t?.cpc ?? 0)}
-            loading={loading}
+            locale={locale}
           />
         </div>
 
@@ -160,17 +189,27 @@ export default function AdsPlatformCard({
         {items.length > 0 && (
           <div>
             <p className="text-[9px] tracking-[0.22em] uppercase text-charcoal/50 font-semibold mb-2">
-              Campagnes
+              {t("ads.campaigns")}
             </p>
             <div className="overflow-x-auto">
               <table className="w-full text-[12px]">
                 <thead>
                   <tr className="text-left text-[9px] tracking-[0.18em] uppercase text-charcoal/45">
-                    <th className="py-2 pr-3 font-semibold">Nom</th>
-                    <th className="py-2 pr-3 font-semibold text-right">Dép.</th>
-                    <th className="py-2 pr-3 font-semibold text-right">Rev.</th>
-                    <th className="py-2 pr-3 font-semibold text-right">ROAS</th>
-                    <th className="py-2 font-semibold text-right">CPA</th>
+                    <th className="py-2 pr-3 font-semibold">
+                      {t("ads.col.name")}
+                    </th>
+                    <th className="py-2 pr-3 font-semibold text-right">
+                      {t("ads.col.spend")}
+                    </th>
+                    <th className="py-2 pr-3 font-semibold text-right">
+                      {t("ads.col.revenue")}
+                    </th>
+                    <th className="py-2 pr-3 font-semibold text-right">
+                      {t("ads.col.roas")}
+                    </th>
+                    <th className="py-2 font-semibold text-right">
+                      {t("ads.col.cpa")}
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#F0E9E1]">
@@ -180,10 +219,10 @@ export default function AdsPlatformCard({
                         {row.campaign_name}
                       </td>
                       <td className="py-2 pr-3 text-right tabular-nums text-charcoal/70">
-                        {fmtCurrency(row.spend)}
+                        {fmtCurrency(row.spend, locale)}
                       </td>
                       <td className="py-2 pr-3 text-right tabular-nums text-charcoal/70">
-                        {fmtCurrency(row.revenue)}
+                        {fmtCurrency(row.revenue, locale)}
                       </td>
                       <td
                         className={`py-2 pr-3 text-right tabular-nums font-medium ${
@@ -194,10 +233,10 @@ export default function AdsPlatformCard({
                               : "text-rose-700"
                         }`}
                       >
-                        {fmtRoas(row.roas)}
+                        {fmtRoas(row.roas, locale)}
                       </td>
                       <td className="py-2 text-right tabular-nums text-charcoal/70">
-                        {row.cpa === null ? "—" : fmtCurrency(row.cpa)}
+                        {row.cpa === null ? "—" : fmtCurrency(row.cpa, locale)}
                       </td>
                     </tr>
                   ))}

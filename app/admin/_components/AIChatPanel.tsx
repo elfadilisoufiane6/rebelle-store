@@ -9,6 +9,7 @@ import {
 } from "react";
 import { Send, Sparkles } from "lucide-react";
 import { adminApi, MetricsResponse } from "@/lib/admin-api";
+import { useLocale } from "../_lib/locale";
 
 type Message = {
   id: string;
@@ -33,6 +34,7 @@ const PROMPT_FALLBACK = [
 ];
 
 export default function AIChatPanel({ context }: Props) {
+  const { t } = useLocale();
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [busy, setBusy] = useState(false);
@@ -41,7 +43,6 @@ export default function AIChatPanel({ context }: Props) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const eventSourceRef = useRef<EventSource | null>(null);
 
-  // Fetch backend-declared capabilities once
   useEffect(() => {
     let cancelled = false;
     adminApi
@@ -61,14 +62,12 @@ export default function AIChatPanel({ context }: Props) {
     };
   }, []);
 
-  // Auto-scroll to latest message
   useEffect(() => {
     const el = scrollerRef.current;
     if (!el) return;
     el.scrollTop = el.scrollHeight;
   }, [messages]);
 
-  // Clean up any in-flight stream on unmount
   useEffect(() => {
     return () => {
       eventSourceRef.current?.close();
@@ -94,8 +93,6 @@ export default function AIChatPanel({ context }: Props) {
       setInput("");
       setBusy(true);
 
-      // Use EventSource on the streaming endpoint. The session cookie
-      // travels with the request thanks to withCredentials.
       const url = adminApi.aiStreamUrl(question, context || undefined);
       const es = new EventSource(url, { withCredentials: true });
       eventSourceRef.current = es;
@@ -152,9 +149,7 @@ export default function AIChatPanel({ context }: Props) {
             msg.id === assistantMsg.id
               ? {
                   ...msg,
-                  error: msg.content
-                    ? undefined
-                    : "Erreur de connexion à l'assistant",
+                  error: msg.content ? undefined : t("ai.connError"),
                   streaming: false,
                 }
               : msg
@@ -165,7 +160,7 @@ export default function AIChatPanel({ context }: Props) {
         setBusy(false);
       };
     },
-    [busy, context]
+    [busy, context, t]
   );
 
   const onSubmit = (e: FormEvent) => {
@@ -174,25 +169,25 @@ export default function AIChatPanel({ context }: Props) {
   };
 
   return (
-    <div className="bg-white border border-[#F0E9E1] rounded-2xl flex flex-col h-[520px] sm:h-[560px]">
+    <div className="bg-white border border-[#F0E9E1] rounded-2xl flex flex-col h-[520px] sm:h-[560px] shadow-[0_1px_0_rgba(26,26,26,0.02)]">
       {/* Header */}
       <div className="px-5 sm:px-6 py-4 border-b border-[#F0E9E1] flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <span className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-[#FAF6F2] text-[#810B38]">
-            <Sparkles size={14} />
+        <div className="flex items-center gap-3">
+          <span className="inline-flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-[#FAF6F2] to-[#F0E9E1] text-[#810B38]">
+            <Sparkles size={15} strokeWidth={1.8} />
           </span>
           <div>
             <p className="text-[9px] tracking-[0.28em] uppercase text-[#810B38] font-semibold">
-              Assistant
+              {t("ai.eyebrow")}
             </p>
-            <p className="font-cormorant text-charcoal text-base leading-none mt-0.5">
-              Analyste maison.
+            <p className="font-cormorant text-charcoal text-base leading-none mt-0.5 tracking-tight">
+              {t("ai.title")}
             </p>
           </div>
         </div>
         {configured === false && (
-          <span className="text-[10px] tracking-[0.18em] uppercase text-amber-700 bg-amber-50 border border-amber-200 rounded-full px-2.5 py-1">
-            Non configuré
+          <span className="text-[10px] tracking-[0.18em] uppercase text-amber-700 bg-amber-50 border border-amber-200 rounded-full px-2.5 py-1 font-semibold">
+            {t("ai.notConfigured")}
           </span>
         )}
       </div>
@@ -204,10 +199,8 @@ export default function AIChatPanel({ context }: Props) {
       >
         {messages.length === 0 && (
           <div className="flex flex-col gap-3">
-            <p className="text-[12px] text-charcoal/55">
-              Pose une question sur le store, les commandes, ou demande des
-              copies pub. L&apos;assistant lit les chiffres du dashboard pour
-              répondre.
+            <p className="text-[12.5px] text-charcoal/60 leading-relaxed">
+              {t("ai.intro")}
             </p>
             <div className="flex flex-wrap gap-2 mt-1">
               {suggested.slice(0, 5).map((p) => (
@@ -239,18 +232,16 @@ export default function AIChatPanel({ context }: Props) {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={
-            configured === false
-              ? "Définis ANTHROPIC_API_KEY pour activer l'assistant"
-              : "Pose ta question…"
+            configured === false ? t("ai.disabled") : t("ai.placeholder")
           }
           disabled={busy || configured === false}
-          className="flex-1 bg-[#FAF6F2] border border-[#F0E9E1] rounded-full px-4 py-2.5 text-[13px] text-charcoal focus:border-[#810B38] focus:outline-none disabled:opacity-60"
+          className="flex-1 bg-[#FAF6F2] border border-[#F0E9E1] rounded-full px-4 py-2.5 text-[13px] text-charcoal placeholder:text-charcoal/40 focus:border-[#810B38] focus:bg-white focus:outline-none transition-colors disabled:opacity-60"
         />
         <button
           type="submit"
           disabled={busy || !input.trim() || configured === false}
           className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#810B38] text-white disabled:opacity-50 hover:bg-[#5c0828] transition-colors"
-          aria-label="Envoyer"
+          aria-label={t("ai.send")}
         >
           <Send size={14} />
         </button>

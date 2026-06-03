@@ -7,6 +7,7 @@ import DateRangePicker, {
   presets,
 } from "../_components/DateRangePicker";
 import AdsPlatformCard from "../_components/AdsPlatformCard";
+import { useLocale } from "../_lib/locale";
 
 // Inline SVG marks so the page has no extra image deps
 function MetaMark() {
@@ -25,6 +26,7 @@ function TikTokMark() {
 }
 
 export default function AdminAdsPage() {
+  const { t } = useLocale();
   const [range, setRange] = useState<DateRange>(presets.last30);
   const [meta, setMeta] = useState<AdsMetricsResponse | null>(null);
   const [tiktok, setTiktok] = useState<AdsMetricsResponse | null>(null);
@@ -45,7 +47,7 @@ export default function AdminAdsPage() {
         });
         setMeta(res);
       } catch (e) {
-        const msg = e instanceof Error ? e.message : "Erreur";
+        const msg = e instanceof Error ? e.message : "Error";
         setMeta({
           success: false,
           configured: false,
@@ -84,7 +86,7 @@ export default function AdminAdsPage() {
         });
         setTiktok(res);
       } catch (e) {
-        const msg = e instanceof Error ? e.message : "Erreur";
+        const msg = e instanceof Error ? e.message : "Error";
         setTiktok({
           success: false,
           configured: false,
@@ -118,25 +120,20 @@ export default function AdminAdsPage() {
   }, [loadMeta, loadTiktok]);
 
   return (
-    <div className="flex flex-col gap-6">
-      <header className="flex flex-col gap-1 mb-2">
-        <p className="text-[10px] tracking-[0.28em] uppercase text-[#810B38] font-semibold">
-          Ads Intelligence
-        </p>
-        <h1 className="font-cormorant font-light text-charcoal text-3xl lg:text-4xl">
-          Performance publicitaire.
-        </h1>
+    <div className="flex flex-col gap-7">
+      <header className="flex items-end justify-between gap-4">
+        <div>
+          <p className="text-[10px] tracking-[0.28em] uppercase text-[#810B38] font-semibold">
+            {t("ads.eyebrow")}
+          </p>
+          <h1 className="font-cormorant font-light text-charcoal text-[2rem] lg:text-[2.5rem] tracking-tight leading-[1.05] mt-1">
+            {t("ads.title")}
+          </h1>
+        </div>
       </header>
 
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 bg-white border border-[#F0E9E1] rounded-2xl p-4">
-        <DateRangePicker
-          value={range}
-          onChange={(r) => {
-            setRange(r);
-            // initial load (not silent) on range change so users see
-            // the skeleton — they're switching periods, not refreshing
-          }}
-        />
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 bg-white border border-[#F0E9E1] rounded-2xl px-4 py-3 shadow-[0_1px_0_rgba(26,26,26,0.02)]">
+        <DateRangePicker value={range} onChange={(r) => setRange(r)} />
       </div>
 
       <AdsPlatformCard

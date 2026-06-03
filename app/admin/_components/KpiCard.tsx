@@ -1,6 +1,14 @@
 "use client";
 
 import { ReactNode } from "react";
+import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { useLocale } from "../_lib/locale";
+import {
+  fmtCompact,
+  fmtCurrencyParts,
+  fmtDelta,
+  fmtPercent,
+} from "../_lib/format";
 
 type Format = "int" | "currency" | "percent" | "raw";
 
@@ -12,24 +20,9 @@ type Props = {
   icon?: ReactNode;
   loading?: boolean;
   highlight?: boolean;
+  /** Optional micro-caption shown under the delta pill (e.g. "vs. last 30d"). */
+  captionOverride?: string;
 };
-
-const fmtInt = (n: number) =>
-  new Intl.NumberFormat("fr-MA").format(Math.round(n));
-const fmtCurrency = (n: number) =>
-  new Intl.NumberFormat("fr-MA", { maximumFractionDigits: 0 }).format(n) +
-  " DH";
-const fmtPercent = (n: number) =>
-  `${(n * 100).toFixed(n < 0.1 && n > 0 ? 1 : 1)} %`;
-
-function formatValue(value: number | string, format: Format): string {
-  if (typeof value === "string") return value;
-  if (!Number.isFinite(value)) return "—";
-  if (format === "currency") return fmtCurrency(value);
-  if (format === "int") return fmtInt(value);
-  if (format === "percent") return fmtPercent(value);
-  return String(value);
-}
 
 export default function KpiCard({
   label,
@@ -39,42 +32,72 @@ export default function KpiCard({
   icon,
   loading,
   highlight,
+  captionOverride,
 }: Props) {
-  const display = loading ? "—" : formatValue(value, format);
+  const { t, locale } = useLocale();
 
-  // Direction: positive = up. For cancellation/return rates the caller
-  // can simply not pass delta (or invert it upstream).
+  // ── Value rendering — keep the number large, the currency suffix
+  //    small (premium dashboard aesthetic).
+  let valueNode: ReactNode = "—";
+  if (!loading) {
+    if (typeof value === "string") {
+      valueNode = value;
+    } else if (!Number.isFinite(value)) {
+      valueNode = "—";
+    } else if (format === "currency") {
+      const { value: v, suffix } = fmtCurrencyParts(value, locale);
+      valueNode = (
+        <>
+          {v}
+          <span
+            className={`ml-1.5 text-[0.4em] font-medium tracking-[0.22em] uppercase align-baseline ${
+              highlight ? "text-white/65" : "text-charcoal/45"
+            }`}
+          >
+            {suffix}
+          </span>
+        </>
+      );
+    } else if (format === "int") {
+      valueNode = fmtCompact(value, locale);
+    } else if (format === "percent") {
+      valueNode = fmtPercent(value, locale, value < 0.1 && value > 0 ? 2 : 1);
+    } else {
+      valueNode = String(value);
+    }
+  }
+
+  // ── Delta pill ─────────────────────────────────────────────
   let deltaNode: ReactNode = null;
   if (!loading && delta !== undefined && delta !== null) {
-    const pct = Math.abs(delta * 100);
-    const up = delta >= 0;
-    const arrow = up ? "▲" : "▼";
-    const color = up ? "text-emerald-600" : "text-rose-600";
+    const { text, up } = fmtDelta(delta, locale);
+    const Arrow = up ? ArrowUpRight : ArrowDownRight;
+    const tone = highlight
+      ? "bg-white/15 text-white/95 border-white/0"
+      : up
+        ? "bg-emerald-50 text-emerald-700 border-emerald-100"
+        : "bg-rose-50 text-rose-700 border-rose-100";
     deltaNode = (
       <span
-        className={`inline-flex items-center gap-1 text-[11px] font-medium tabular-nums ${
-          highlight ? "text-white/90" : color
-        }`}
+        className={`inline-flex items-center gap-1 text-[10px] font-semibold tabular-nums tracking-tight px-2 py-0.5 rounded-full border ${tone}`}
       >
-        <span>{arrow}</span>
-        <span>
-          {pct >= 1000 ? "999+" : pct.toFixed(pct >= 10 ? 0 : 1)} %
-        </span>
+        <Arrow size={10} strokeWidth={2.4} />
+        {text}
       </span>
     );
   }
 
   return (
     <div
-      className={`relative rounded-2xl p-4 sm:p-5 border ${
+      className={`group relative rounded-2xl p-4 sm:p-5 border transition-shadow ${
         highlight
-          ? "bg-[#810B38] text-white border-[#810B38]"
-          : "bg-white text-charcoal border-[#F0E9E1]"
+          ? "bg-[#810B38] text-white border-[#810B38] shadow-[0_8px_24px_-12px_rgba(129,11,56,0.4)]"
+          : "bg-white text-charcoal border-[#F0E9E1] shadow-[0_1px_0_rgba(26,26,26,0.02)] hover:shadow-[0_12px_28px_-16px_rgba(26,26,26,0.12)]"
       }`}
     >
       <div className="flex items-start justify-between gap-3">
         <p
-          className={`text-[9px] sm:text-[10px] tracking-[0.22em] uppercase font-semibold ${
+          className={`text-[9px] sm:text-[10px] tracking-[0.24em] uppercase font-semibold ${
             highlight ? "text-white/70" : "text-charcoal/50"
           }`}
         >
@@ -82,10 +105,10 @@ export default function KpiCard({
         </p>
         {icon && (
           <span
-            className={`inline-flex items-center justify-center rounded-lg w-7 h-7 ${
+            className={`inline-flex items-center justify-center rounded-lg w-7 h-7 transition-colors ${
               highlight
                 ? "bg-white/10 text-white/85"
-                : "bg-[#FAF6F2] text-[#810B38]"
+                : "bg-[#FAF6F2] text-[#810B38] group-hover:bg-[#810B38]/8"
             }`}
           >
             {icon}
@@ -94,15 +117,28 @@ export default function KpiCard({
       </div>
 
       <p
-        className={`font-cormorant font-light tabular-nums mt-2 leading-none ${
-          highlight ? "text-white" : "text-[#810B38]"
+        className={`font-cormorant font-light tabular-nums mt-3 leading-none tracking-tight ${
+          highlight ? "text-white" : "text-charcoal"
         }`}
-        style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.5rem)" }}
+        style={{ fontSize: "clamp(1.85rem, 3.4vw, 2.6rem)" }}
       >
-        {display}
+        {valueNode}
       </p>
 
-      {deltaNode && <div className="mt-2.5">{deltaNode}</div>}
+      {(deltaNode || captionOverride) && (
+        <div className="mt-3 flex items-center gap-2">
+          {deltaNode}
+          {!loading && (
+            <span
+              className={`text-[10px] tracking-tight ${
+                highlight ? "text-white/55" : "text-charcoal/40"
+              }`}
+            >
+              {captionOverride ?? t("common.vs_prev")}
+            </span>
+          )}
+        </div>
+      )}
     </div>
   );
 }

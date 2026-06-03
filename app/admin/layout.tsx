@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AdminShell from "./_components/AdminShell";
+import { LocaleProvider } from "./_lib/locale";
 
 export const metadata: Metadata = {
   title: "Admin · Rebelle",
@@ -11,5 +12,9 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <AdminShell>{children}</AdminShell>;
+  return (
+    <LocaleProvider>
+      <AdminShell>{children}</AdminShell>
+    </LocaleProvider>
+  );
 }

@@ -2,11 +2,11 @@
 
 import { motion } from "framer-motion";
 
-// Premium editorial reveal — the brand-name wordplay (RE · BELLE · ELLE)
-// laid out as a cascading typographic block. Heavier visual hierarchy
-// (eyebrow ornament, more dramatic size jump, ornamental divider, italic
-// closing line) so the section reads like a perfume launch card rather
-// than a marketing strip.
+// Premium editorial reveal — the brand-name wordplay (Re·belle · B·elle · elle)
+// rendered as a soft, feminine typographic cascade. Flowing italic Cormorant
+// in mixed case (not hard uppercase), right-aligned so the recurring "elle"
+// — *her* — stacks and peels out of every form of the name. Blush field,
+// delicate gold detailing, so the section reads like an haute-couture card.
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -14,13 +14,13 @@ export default function BrandReveal() {
   return (
     <section
       aria-label="Le nom Rebelle"
-      className="bg-white py-14 lg:py-20 overflow-hidden relative"
+      className="bg-blush/40 py-16 lg:py-24 overflow-hidden relative"
     >
       {/* Subtle editorial frame */}
-      <div className="absolute top-0 left-0 w-1/3 h-px bg-gradient-to-r from-[#810B38]/40 to-transparent pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-1/3 h-px bg-gradient-to-l from-[#810B38]/40 to-transparent pointer-events-none" />
+      <div className="absolute top-0 left-0 w-1/3 h-px bg-gradient-to-r from-[#C4956A]/50 to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-1/3 h-px bg-gradient-to-l from-[#C4956A]/50 to-transparent pointer-events-none" />
 
-      <div className="max-w-4xl mx-auto px-6 lg:px-10 text-center flex flex-col items-center gap-5 lg:gap-7">
+      <div className="max-w-4xl mx-auto px-6 lg:px-10 text-center flex flex-col items-center gap-6 lg:gap-8">
         {/* Eyebrow — ornamental with flanking diamonds */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
@@ -29,50 +29,45 @@ export default function BrandReveal() {
           transition={{ duration: 0.6, ease: EASE }}
           className="flex items-center gap-3"
         >
-          <span className="w-2 h-2 rotate-45 border border-[#810B38]" />
-          <span className="text-[11px] tracking-[0.42em] uppercase text-[#810B38] font-semibold">
+          <span className="w-2 h-2 rotate-45 border border-[#C4956A]" />
+          <span className="text-[11px] tracking-[0.42em] uppercase text-[#810B38] font-medium">
             Le nom
           </span>
-          <span className="w-2 h-2 rotate-45 border border-[#810B38]" />
+          <span className="w-2 h-2 rotate-45 border border-[#C4956A]" />
         </motion.div>
 
-        {/* Cascade — each nested word slides in from the right */}
-        <div className="font-cormorant font-light leading-[0.92] tracking-[0.04em] uppercase inline-block text-left overflow-hidden">
+        {/* Cascade — feminine italic, right-aligned so the shared "elle"
+            peels out of each word. Each line fades up gently in sequence. */}
+        <div className="font-cormorant italic font-light leading-[0.96] tracking-[0.01em] inline-block text-right overflow-hidden">
           <motion.p
-            initial={{ opacity: 0, x: -32 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, delay: 0.05, ease: EASE }}
+            transition={{ duration: 0.8, delay: 0.05, ease: EASE }}
             className="text-charcoal"
             style={{ fontSize: "clamp(2.75rem, 10vw, 7rem)" }}
           >
-            REBELLE.
+            Reb<span className="text-[#810B38]">elle</span>
           </motion.p>
           <motion.p
-            initial={{ opacity: 0, x: 48 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, delay: 0.25, ease: EASE }}
-            className="text-[#810B38] mt-1"
-            style={{
-              fontSize: "clamp(2rem, 7.5vw, 5rem)",
-              paddingLeft: "1.4em",
-            }}
+            transition={{ duration: 0.8, delay: 0.28, ease: EASE }}
+            className="text-charcoal/70 -mt-1"
+            style={{ fontSize: "clamp(2rem, 7.5vw, 5rem)" }}
           >
-            BELLE.
+            B<span className="text-[#C4956A]">elle</span>
           </motion.p>
           <motion.p
-            initial={{ opacity: 0, x: 64 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, delay: 0.45, ease: EASE }}
-            className="text-[#C4956A] mt-1"
-            style={{
-              fontSize: "clamp(1.5rem, 5.5vw, 3.75rem)",
-              paddingLeft: "3em",
-            }}
+            transition={{ duration: 0.8, delay: 0.5, ease: EASE }}
+            className="text-[#C4956A]"
+            style={{ fontSize: "clamp(1.5rem, 5.5vw, 3.75rem)" }}
           >
-            ELLE.
+            elle.
           </motion.p>
         </div>
 

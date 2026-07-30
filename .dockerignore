@@ -4,6 +4,11 @@ out
 dist
 build
 
+# backend API — separate repo checked out here for local dev. Gitignored,
+# so Easypanel's git build never sees it; this keeps a local `docker build`
+# from shipping 26 MB of another project into the context.
+rebelle-backend
+
 # env — never bake secrets into the image; NEXT_PUBLIC_* come via --build-arg
 .env
 .env.local

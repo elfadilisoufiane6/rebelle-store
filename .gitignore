@@ -22,6 +22,11 @@ dist
 # personal notes / scratchpad — never push to public repo
 PROMPT.md
 
+# backend API — its own repository (elfadilisoufiane6/rebelle-store-),
+# checked out here for local dev. Committing it would nest a second .git
+# and push a broken gitlink instead of the code.
+rebelle-backend/
+
 # logs
 npm-debug.log*
 yarn-debug.log*

@@ -226,6 +226,40 @@ body {
   display: none;
 }
 
+/* Lookbook film strip — the track holds two identical copies of the moments,
+   so translating it exactly one copy-width (-50%) loops with no visible seam.
+   Travels left → right, so each look drifts in from the left edge.
+   Every tile must include its own trailing gap (margin, not flex `gap`),
+   otherwise the halfway point lands mid-gap and the loop stutters. */
+@keyframes lookbookDrift {
+  from { transform: translate3d(-50%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+
+.lookbook-track {
+  animation: lookbookDrift var(--lookbook-duration, 48s) linear infinite;
+  will-change: transform;
+}
+
+/* Hold the strip still while someone is reading a look or tabbing through it. */
+.lookbook-strip:hover .lookbook-track,
+.lookbook-strip:focus-within .lookbook-track {
+  animation-play-state: paused;
+}
+
+/* Reduced motion: no drift at all. The global rule below would otherwise
+   snap the track to translateX(0) and leave half the strip off-screen,
+   so park it at 0 and let the strip scroll by hand instead. */
+@media (prefers-reduced-motion: reduce) {
+  .lookbook-track {
+    animation: none !important;
+    transform: none !important;
+  }
+  .lookbook-strip {
+    overflow-x: auto;
+  }
+}
+
 /* Luxury focus styles */
 button:focus-visible,
 a:focus-visible {
